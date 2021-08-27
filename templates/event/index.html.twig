@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello EventController!{% endblock %}
+
+{% block body %}
+<a href="{{path('addEvent')}}"><h1>Ajouter un évènement</h1></a>
+    {% for event in events %}
+    <div>
+        <p><a href="{{path('oneEvent', {id: event.id})}}"><strong>{{event.title}}</strong></a>
+        <br>
+        {{event.content| slice(1, 50)}} [...]
+        <br>
+        Débute le {{event.startAt|date("m/d/Y", "Europe/Paris")}}
+        <br>
+        Fini le {{event.endAt|date("m/d/Y", "Europe/Paris")}}
+        <br>
+        Ajouté le {{event.createdAt|date("m/d/Y", "Europe/Paris")}}
+        <br>
+        <a href="{{path('oneCategory', {name:event.category.name})}}"><h3>{{event.category.name}}</h3></a>
+        <hr>
+        <a type="button" href="{{path('editEvent', {id: event.id})}}">Modifier</a>
+        
+        <hr>
+        </p>
+    </div>
+    {% endfor %}
+{% endblock %}

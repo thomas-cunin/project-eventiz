@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CategoryController!{% endblock %}
+
+{% block body %}
+    {% for event in cat.events %}
+        <div>
+        <p><strong>{{event.title}}</strong>
+        <br>
+        {{event.content| slice(1, 50)}} [...]
+        <br>
+        Débute le {{event.startAt|date("m/d/Y", "Europe/Paris")}}
+        <br>
+        Fini le {{event.endAt|date("m/d/Y", "Europe/Paris")}}
+        <br>
+        Ajouté le {{event.createdAt|date("m/d/Y", "Europe/Paris")}}
+        <br>
+        </p>
+    </div>
+    {% endfor %}
+{% endblock %}
