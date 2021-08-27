@@ -3,6 +3,9 @@
 {% block title %}Hello EventController!{% endblock %}
 
 {% block body %}
+<a href="{{path('register')}}"><h1>Inscription</h1></a>
+<a href="{{path('login')}}"><h1>Connexion</h1></a>
+<a href="{{path('logout')}}"><h1>Déconnexion</h1></a>
 <a href="{{path('addEvent')}}"><h1>Ajouter un évènement</h1></a>
     {% for event in events %}
     <div>
