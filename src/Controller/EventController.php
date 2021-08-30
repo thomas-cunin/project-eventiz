@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Event;
+use App\Entity\Comment;
 use App\Form\EventType;
+use App\Form\CommentType;
 use App\Repository\EventRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,11 +30,22 @@ class EventController extends AbstractController
     /**
      * @Route("/event/{id}", name="oneEvent")
      */
-    public function show(Event $event): Response
+    public function show(Event $event, EntityManagerInterface $em, Request $request): Response
     {
-        
+        $comment = new Comment();
+        $form = $this->createForm(CommentType::class, $comment);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid() && $this->getUser())
+        {
+            $comment->setCreatedAt(new \DateTime());
+            $comment->setEvent($event);
+            $comment->setUser($this->getUser());
+            $em->persist($comment);
+            $em->flush();
+        }
         return $this->render('event/one_event.html.twig', [
             'event' => $event,
+            'form' => $form->createView()
         ]);
     }
 
@@ -52,6 +65,7 @@ class EventController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid())
         {
+            $event->setIsCanceled(false);
             $event->setCreatedAt(new \DateTime);
             $em->persist($event);
             $em->flush();

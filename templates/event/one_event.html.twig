@@ -16,4 +16,16 @@
         <br>
         </p>
     </div>
+    <div>
+    {% for comment in event.comments %}
+        <br>
+        {{comment.content}}
+        <br>
+        {{comment.user.displayName}}
+    {% endfor %}
+    {{form_start(form)}}
+        {{form_row(form.content)}}
+        <button type="submit">Envoyer</button>
+    {{form_end(form)}}
+    </div>
 {% endblock %}
