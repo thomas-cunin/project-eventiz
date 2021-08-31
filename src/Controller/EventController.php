@@ -7,6 +7,7 @@ use App\Entity\Comment;
 use App\Form\EventType;
 use App\Form\CommentType;
 use App\Repository\EventRepository;
+use App\Service\LocationService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,9 +19,35 @@ class EventController extends AbstractController
     /**
      * @Route("/", name="home")
      */
-    public function index(EventRepository $repo): Response
+    public function index(EventRepository $repo, LocationService $loc, Request $request): Response
     {
-        dump($this->getUser());
+        $location = $loc->getLocation($_SERVER['REMOTE_ADDR']);
+        dump($this->getUser(), $location);
+
+        // if ($request->get('orderby')){
+        //     switch ($request->get('orderby')) {
+                
+        //         case 'asc':
+        //             $tweets = $repo->findAllByCreatedAtAsc();
+        //             dump($request->get('orderby'));
+        //             break;
+                
+        //         case 'desc':
+        //             $tweets = $repo->findAllByCreatedAtDesc();
+        //             dump($request->get('orderby'));
+        //             break;
+        //     }}
+        //     elseif ($request->get('wordToSearch')) {
+        //         $tweets = $repo->findAllByContent($request->get('wordToSearch'));
+        //         dump($request->get('contentToSearch'));
+    
+        //     }
+        //     elseif ($request->get('userToSearch')) {
+        //         $tweets = $repo->findAllByUser($request->get('userToSearch'));
+        //         dump($request->get('contentToSearch'));
+    
+        //     } else {$tweets = $repo->findAll();}
+
         $events = $repo->findAll();
         return $this->render('event/index.html.twig', [
             'events' => $events,
@@ -76,5 +103,15 @@ class EventController extends AbstractController
         [
             'form' => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route("/event/remove/{id}", name="removeEvent")
+     */
+    public function remove(Event $event, EntityManagerInterface $em): Response
+    {
+        $em->remove($event);
+        $em->flush();
+        return $this->redirectToRoute('home');
     }
 }

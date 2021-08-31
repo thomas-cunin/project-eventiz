@@ -19,6 +19,59 @@ class EventRepository extends ServiceEntityRepository
         parent::__construct($registry, Event::class);
     }
 
+/**
+     * @return Event[] Returns an array of Event objects
+     */
+    public function findAllByCreatedAtAsc() // $order = 'ASC' or 'DESC'
+    {
+        return $this->createQueryBuilder('e')
+            ->orderBy('e.createdAt', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+        /**
+     * @return Event[] Returns an array of Event objects
+     */
+    public function findAllByCreatedAtDesc() // $order = 'ASC' or 'DESC'
+    {
+        return $this->createQueryBuilder('e')
+            ->orderBy('e.createdAt', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+       /**
+     * @return Event[] Returns an array of Event objects
+     */
+    public function findAllByContent($word) // 
+    {
+        return $this->createQueryBuilder('e')
+            ->andWhere('e.content LIKE :val')
+            ->setParameter('val', '%'.$word.'%')
+            ->orderBy('e.createdAt', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+      /**
+     * @return Event[] Returns an array of Event objects
+     */
+    public function findAllByUser($user) // 
+    {
+        return $this->createQueryBuilder('e')
+            ->innerjoin('e.user', 'u')
+            ->andWhere('u.username = :val')
+            ->setParameter('val', $user)
+            ->orderBy('e.createdAt', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return Event[] Returns an array of Event objects
     //  */

@@ -22,7 +22,9 @@
         <a href="{{path('oneCategory', {name:event.category.name})}}"><h3>{{event.category.name}}</h3></a>
         <hr>
         <a type="button" href="{{path('editEvent', {id: event.id})}}">Modifier</a>
-        
+        <a type="button" href="{{path('removeEvent', {id: event.id})}}">Supprimmer</a>
+        <a type="button" href="{{path('likeEvent', {id: event.id})}}">Liker</a>
+        {{event.likes|length}} likes !
         <hr>
         </p>
     </div>
