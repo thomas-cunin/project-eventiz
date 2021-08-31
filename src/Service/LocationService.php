@@ -22,7 +22,10 @@ class LocationService {
             $url
         );
         $content = $response->toArray();
-        return $content['loc'];
+        if (isset($content['loc'])){
+            return $content['loc'];
+        }
+            return null;
         
     }
     public function getDistance($coord1, $coord2, $unit = 'K'): float

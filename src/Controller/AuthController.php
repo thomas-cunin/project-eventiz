@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Image;
 use App\Entity\User;
 use App\Form\UserType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -36,21 +37,27 @@ class AuthController extends AbstractController
             $password = $hasher->hashPassword($user, $user->getPassword());
             $user->setPassword($password);
 
-            // $file = $form['illustration']->getData();
-            // // compute a random name and try to guess the extension (more secure)
-            // if (!$file){
-            //     $user->setIllustration('default.jpg');
-            // } else {
-            // $extension = $file->guessExtension();
-            // $fileName = uniqid() . $extension;
-            // if (!$extension) {
-            //     // extension cannot be guessed
-            //     $extension = 'bin';
-            // }
-            // $file->move($this->getParameter('user_illustration_dir'), $fileName);
-            // $user->setIllustration($fileName);
-            // }
+            $file = $form['image']->getData();
+            // compute a random name and try to guess the extension (more secure)
+            if ($file){
+                $extension = $file->guessExtension();
+                if (!$extension) 
+                {
+                    // extension cannot be guessed
+                    $extension = 'bin';
+                }
+            $fileName = uniqid() .'.'. $extension;
+            $image = new Image();
+            $image->setName($file->getClientOriginalName());
+            $image->setPath($fileName);
+            $image->setCreatedAt(new \DateTime());
+            $image->setUser($user);
+            $file->move($this->getParameter('image_dir'), $fileName);
+            $em->persist($image);
+                
+            }
             // dd($user);
+            
             $em->persist($user);
             $em->flush();
             return $this->redirectToRoute('login');

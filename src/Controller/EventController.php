@@ -22,7 +22,7 @@ class EventController extends AbstractController
     public function index(EventRepository $repo, LocationService $loc, Request $request): Response
     {
         $location = $loc->getLocation($_SERVER['REMOTE_ADDR']);
-        dump($this->getUser(), $location);
+        dump($this->getUser(), $location, $this->getUser()->getImages());
 
         // if ($request->get('orderby')){
         //     switch ($request->get('orderby')) {
