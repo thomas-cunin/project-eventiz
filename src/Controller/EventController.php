@@ -22,33 +22,27 @@ class EventController extends AbstractController
     public function index(EventRepository $repo, LocationService $loc, Request $request): Response
     {
         $location = $loc->getLocation($_SERVER['REMOTE_ADDR']);
-        dump($this->getUser(), $location, $this->getUser()->getImages());
 
-        // if ($request->get('orderby')){
-        //     switch ($request->get('orderby')) {
+        if ($request->get('orderby')){
+            switch ($request->get('orderby')) {
                 
-        //         case 'asc':
-        //             $tweets = $repo->findAllByCreatedAtAsc();
-        //             dump($request->get('orderby'));
-        //             break;
+                case 'asc':
+                    $events = $repo->findAllByCreatedAtAsc();
+                    dump($request->get('orderby'));
+                    break;
                 
-        //         case 'desc':
-        //             $tweets = $repo->findAllByCreatedAtDesc();
-        //             dump($request->get('orderby'));
-        //             break;
-        //     }}
-        //     elseif ($request->get('wordToSearch')) {
-        //         $tweets = $repo->findAllByContent($request->get('wordToSearch'));
-        //         dump($request->get('contentToSearch'));
+                case 'desc':
+                    $events = $repo->findAllByCreatedAtDesc();
+                    dump($request->get('orderby'));
+                    break;
+            }}
+            elseif ($request->get('wordToSearch')) {
+                $events = $repo->findAllByContent($request->get('wordToSearch'));
+                dump($request->get('contentToSearch'));
     
-        //     }
-        //     elseif ($request->get('userToSearch')) {
-        //         $tweets = $repo->findAllByUser($request->get('userToSearch'));
-        //         dump($request->get('contentToSearch'));
-    
-        //     } else {$tweets = $repo->findAll();}
+            } else {$events = $repo->findAll();}
 
-        $events = $repo->findAll();
+
         return $this->render('event/index.html.twig', [
             'events' => $events,
         ]);

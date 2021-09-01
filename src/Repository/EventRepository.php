@@ -57,20 +57,20 @@ class EventRepository extends ServiceEntityRepository
         ;
     }
 
-      /**
-     * @return Event[] Returns an array of Event objects
-     */
-    public function findAllByUser($user) // 
-    {
-        return $this->createQueryBuilder('e')
-            ->innerjoin('e.user', 'u')
-            ->andWhere('u.username = :val')
-            ->setParameter('val', $user)
-            ->orderBy('e.createdAt', 'DESC')
-            ->getQuery()
-            ->getResult()
-        ;
-    }
+    //   /**
+    //  * @return Event[] Returns an array of Event objects
+    //  */
+    // public function findAllByUser($user) // 
+    // {
+    //     return $this->createQueryBuilder('e')
+    //         ->innerjoin('e.user', 'u')
+    //         ->andWhere('u.username = :val')
+    //         ->setParameter('val', $user)
+    //         ->orderBy('e.createdAt', 'DESC')
+    //         ->getQuery()
+    //         ->getResult()
+    //     ;
+    // }
 
     // /**
     //  * @return Event[] Returns an array of Event objects

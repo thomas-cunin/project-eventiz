@@ -7,6 +7,43 @@
 <a href="{{path('login')}}"><h1>Connexion</h1></a>
 <a href="{{path('logout')}}"><h1>Déconnexion</h1></a>
 <a href="{{path('addEvent')}}"><h1>Ajouter un évènement</h1></a>
+
+<hr>
+<form class="" method="post">
+<nav class="breadcrumb is-centered mt-2 d-flex justify-content-around" aria-label="breadcrumbs">
+  <ul>
+    <li><button type="submit" class="button is-link" value="asc" name="orderby" href="#">Date croissante</button></li>
+    <li><button type="submit" class="button is-link" value="desc" name="orderby" href="#">Date décroissante</button></li>
+    <li><button type="submit" class="button is-link" name="" href="#">Popularité</button></li>
+    {# <li class="is-active"><a href="#" aria-current="page">Breadcrumb</a></li> #}
+    </form>
+    <li>
+    <form method="post">
+    <div class="field has-addons">
+    <div class="control">
+      <input type="text" class="form-control" name="wordToSearch"></input>
+    </div>
+    <div class="control">
+      <button type="submit" class="button is-link">Chercher</button>
+      </div>
+      </div>
+      </li>
+    </form>
+    <li>
+    <form method="post">
+    <div class="field has-addons">
+    <div class="control">
+      <input type="text" class="form-control" name="userToSearch" Placeholder="Xx_DarkSasuke_xX"></input>
+    </div>
+    <div class="control">
+      <button type="submit" class="button is-link">Chercher</button>
+      </div>
+      </div>
+      </li>
+    </form>
+    <hr>
+    <div style="background-color:blue; w">
+    </div>
     {% for event in events %}
     <div>
         <p><a href="{{path('oneEvent', {id: event.id})}}"><strong>{{event.title}}</strong></a>
