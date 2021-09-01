@@ -78,12 +78,18 @@ class User implements UserInterface
      */
     private $longitude;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Event::class, mappedBy="organizer")
+     */
+    private $events;
+
     public function __construct()
     {
         $this->likedCategorys = new ArrayCollection();
         $this->comments = new ArrayCollection();
         $this->likes = new ArrayCollection();
         $this->images = new ArrayCollection();
+        $this->events = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -298,6 +304,36 @@ class User implements UserInterface
     public function setLongitude(float $longitude): self
     {
         $this->longitude = $longitude;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Event[]
+     */
+    public function getEvents(): Collection
+    {
+        return $this->events;
+    }
+
+    public function addEvent(Event $event): self
+    {
+        if (!$this->events->contains($event)) {
+            $this->events[] = $event;
+            $event->setOrganizer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEvent(Event $event): self
+    {
+        if ($this->events->removeElement($event)) {
+            // set the owning side to null (unless already changed)
+            if ($event->getOrganizer() === $this) {
+                $event->setOrganizer(null);
+            }
+        }
 
         return $this;
     }

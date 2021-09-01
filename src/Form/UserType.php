@@ -9,6 +9,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\CountryType;
 
 class UserType extends AbstractType
 {
@@ -30,6 +32,7 @@ class UserType extends AbstractType
                 // 'attr' => ['class' => 'tinymce']
                 'required' => false,
             ])
+            
         ;
     }
 

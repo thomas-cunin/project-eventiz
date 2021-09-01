@@ -21,8 +21,8 @@ class EventController extends AbstractController
      */
     public function index(EventRepository $repo, LocationService $loc, Request $request): Response
     {
-        $location = $loc->getLocation($_SERVER['REMOTE_ADDR']);
-
+        
+        $wts = uniqid();
         if ($request->get('orderby')){
             switch ($request->get('orderby')) {
                 
@@ -39,12 +39,17 @@ class EventController extends AbstractController
             elseif ($request->get('wordToSearch')) {
                 $events = $repo->findAllByContent($request->get('wordToSearch'));
                 dump($request->get('contentToSearch'));
-    
-            } else {$events = $repo->findAll();}
+                $wts = $request->get('wordToSearch');
+            } elseif ($request->get('position')) {
+                dump($request->get('position'));
+                $events = $repo->findAll();
+            }
+            else {$events = $repo->findAll();}
 
 
         return $this->render('event/index.html.twig', [
             'events' => $events,
+            'wordToSearch' => $wts,
         ]);
     }
 
@@ -74,7 +79,7 @@ class EventController extends AbstractController
      * @Route("/event/edit/{id}", name="editEvent", priority=1)
      * @Route("/event/add", name="addEvent", priority=1)
      */
-    public function edit(Event $event = null, EntityManagerInterface $em, Request $request): Response
+    public function edit(Event $event = null, EntityManagerInterface $em, Request $request, LocationService $loc): Response
     {
         $editMode = false;
         if (!$event)
@@ -85,7 +90,11 @@ class EventController extends AbstractController
         $form = $this->createForm(EventType::class,$event);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid())
-        {
+        {   $coord = explode(",", $request->get('coordonates'));
+            $event->setLongitude(0);
+            $event->setLatitude(0);
+            $event->setAdress('testland');
+            $event->setOrganizer($this->getUser());
             $event->setIsCanceled(false);
             $event->setCreatedAt(new \DateTime);
             $em->persist($event);

@@ -13,17 +13,16 @@ class LocationService {
         $this->client = $client;
     }
 
-    public function getLocation($ip)
+    public function getAdress($long, $lati)
     {
-        $token = 'db9021b9b973bb';
-        $url = 'http://www.ipinfo.io/'. $ip .'?token='.$token;
+        $url = 'https://api-adresse.data.gouv.fr/reverse/?lon='. $long .'&lat='. $lati;
         $response = $this->client->request(
             'GET',
             $url
         );
         $content = $response->toArray();
-        if (isset($content['loc'])){
-            return $content['loc'];
+        if (isset($content)){
+            return $content;
         }
             return null;
         

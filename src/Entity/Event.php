@@ -81,6 +81,17 @@ class Event
      */
     private $latitude;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="events")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $organizer;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $adress;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
@@ -299,6 +310,30 @@ class Event
     public function setLatitude(float $latitude): self
     {
         $this->latitude = $latitude;
+
+        return $this;
+    }
+
+    public function getOrganizer(): ?User
+    {
+        return $this->organizer;
+    }
+
+    public function setOrganizer(?User $organizer): self
+    {
+        $this->organizer = $organizer;
+
+        return $this;
+    }
+
+    public function getAdress(): ?string
+    {
+        return $this->adress;
+    }
+
+    public function setAdress(string $adress): self
+    {
+        $this->adress = $adress;
 
         return $this;
     }
