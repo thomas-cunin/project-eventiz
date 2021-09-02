@@ -7,6 +7,7 @@ use App\Entity\Comment;
 use App\Form\EventType;
 use App\Form\CommentType;
 use App\Repository\EventRepository;
+use App\Service\LocationService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,12 +19,34 @@ class EventController extends AbstractController
     /**
      * @Route("/", name="home")
      */
-    public function index(EventRepository $repo): Response
+    public function index(EventRepository $repo, LocationService $loc, Request $request): Response
     {
-        dump($this->getUser());
-        $events = $repo->findAll();
+        
+        $wts = uniqid();
+        if ($request->get('orderby')){
+            switch ($request->get('orderby')) {
+                
+                case 'asc':
+                    $events = $repo->findAllByCreatedAtAsc();
+                    dump($request->get('orderby'));
+                    break;
+                
+                case 'desc':
+                    $events = $repo->findAllByCreatedAtDesc();
+                    dump($request->get('orderby'));
+                    break;
+            }}
+            elseif ($request->get('wordToSearch')) {
+                $events = $repo->findAllByContent($request->get('wordToSearch'));
+                dump($request->get('contentToSearch'));
+                $wts = $request->get('wordToSearch');
+            }
+            else {$events = $repo->findAll();}
+
+
         return $this->render('event/index.html.twig', [
             'events' => $events,
+            'wordToSearch' => $wts,
         ]);
     }
 
@@ -53,7 +76,7 @@ class EventController extends AbstractController
      * @Route("/event/edit/{id}", name="editEvent", priority=1)
      * @Route("/event/add", name="addEvent", priority=1)
      */
-    public function edit(Event $event = null, EntityManagerInterface $em, Request $request): Response
+    public function edit(Event $event = null, EntityManagerInterface $em, Request $request, LocationService $loc): Response
     {
         $editMode = false;
         if (!$event)
@@ -64,7 +87,9 @@ class EventController extends AbstractController
         $form = $this->createForm(EventType::class,$event);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid())
-        {
+        {   $coord = explode(",", $request->get('coordonates'));
+            $event->setAdress('testland');
+            $event->setOrganizer($this->getUser());
             $event->setIsCanceled(false);
             $event->setCreatedAt(new \DateTime);
             $em->persist($event);
@@ -76,5 +101,15 @@ class EventController extends AbstractController
         [
             'form' => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route("/event/remove/{id}", name="removeEvent")
+     */
+    public function remove(Event $event, EntityManagerInterface $em): Response
+    {
+        $em->remove($event);
+        $em->flush();
+        return $this->redirectToRoute('home');
     }
 }
