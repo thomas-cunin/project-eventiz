@@ -36,8 +36,6 @@ class AuthController extends AbstractController
             $user->setCreatedAt(new \DateTime());
             $password = $hasher->hashPassword($user, $user->getPassword());
             $user->setPassword($password);
-            $user->setLatitude(7.5);
-            $user->setLongitude(5.8);
 
             $file = $form['image']->getData();
             // compute a random name and try to guess the extension (more secure)

@@ -69,19 +69,19 @@ class User implements UserInterface
     private $images;
 
     /**
-     * @ORM\Column(type="float")
-     */
-    private $latitude;
-
-    /**
-     * @ORM\Column(type="float")
-     */
-    private $longitude;
-
-    /**
      * @ORM\OneToMany(targetEntity=Event::class, mappedBy="organizer")
      */
     private $events;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isOrganizer;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Subscription::class, mappedBy="user", orphanRemoval=true)
+     */
+    private $subscriptions;
 
     public function __construct()
     {
@@ -90,6 +90,7 @@ class User implements UserInterface
         $this->likes = new ArrayCollection();
         $this->images = new ArrayCollection();
         $this->events = new ArrayCollection();
+        $this->subscriptions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -284,30 +285,6 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getLatitude(): ?float
-    {
-        return $this->latitude;
-    }
-
-    public function setLatitude(float $latitude): self
-    {
-        $this->latitude = $latitude;
-
-        return $this;
-    }
-
-    public function getLongitude(): ?float
-    {
-        return $this->longitude;
-    }
-
-    public function setLongitude(float $longitude): self
-    {
-        $this->longitude = $longitude;
-
-        return $this;
-    }
-
     /**
      * @return Collection|Event[]
      */
@@ -332,6 +309,48 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($event->getOrganizer() === $this) {
                 $event->setOrganizer(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getIsOrganizer(): ?bool
+    {
+        return $this->isOrganizer;
+    }
+
+    public function setIsOrganizer(bool $isOrganizer): self
+    {
+        $this->isOrganizer = $isOrganizer;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Subscription[]
+     */
+    public function getSubscriptions(): Collection
+    {
+        return $this->subscriptions;
+    }
+
+    public function addSubscription(Subscription $subscription): self
+    {
+        if (!$this->subscriptions->contains($subscription)) {
+            $this->subscriptions[] = $subscription;
+            $subscription->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSubscription(Subscription $subscription): self
+    {
+        if ($this->subscriptions->removeElement($subscription)) {
+            // set the owning side to null (unless already changed)
+            if ($subscription->getUser() === $this) {
+                $subscription->setUser(null);
             }
         }
 

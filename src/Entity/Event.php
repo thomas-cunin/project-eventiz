@@ -72,16 +72,6 @@ class Event
     private $images;
 
     /**
-     * @ORM\Column(type="float")
-     */
-    private $longitude;
-
-    /**
-     * @ORM\Column(type="float")
-     */
-    private $latitude;
-
-    /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="events")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -92,11 +82,22 @@ class Event
      */
     private $adress;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Subscription::class, mappedBy="event", orphanRemoval=true)
+     */
+    private $subscriptions;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $capacity;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
         $this->likes = new ArrayCollection();
         $this->images = new ArrayCollection();
+        $this->subscriptions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -290,29 +291,6 @@ class Event
         return $this;
     }
 
-    public function getLongitude(): ?float
-    {
-        return $this->longitude;
-    }
-
-    public function setLongitude(float $longitude): self
-    {
-        $this->longitude = $longitude;
-
-        return $this;
-    }
-
-    public function getLatitude(): ?float
-    {
-        return $this->latitude;
-    }
-
-    public function setLatitude(float $latitude): self
-    {
-        $this->latitude = $latitude;
-
-        return $this;
-    }
 
     public function getOrganizer(): ?User
     {
@@ -334,6 +312,60 @@ class Event
     public function setAdress(string $adress): self
     {
         $this->adress = $adress;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Subscription[]
+     */
+    public function getSubscriptions(): Collection
+    {
+        return $this->subscriptions;
+    }
+
+    public function addSubscription(Subscription $subscription): self
+    {
+        if (!$this->subscriptions->contains($subscription)) {
+            $this->subscriptions[] = $subscription;
+            $subscription->setEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSubscription(Subscription $subscription): self
+    {
+        if ($this->subscriptions->removeElement($subscription)) {
+            // set the owning side to null (unless already changed)
+            if ($subscription->getEvent() === $this) {
+                $subscription->setEvent(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function isSubscribedBy(User $user): bool
+    {
+        foreach($this->subscriptions as $sub)
+        {
+            if ($sub->getUser() == $user)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function getCapacity(): ?int
+    {
+        return $this->capacity;
+    }
+
+    public function setCapacity(?int $capacity): self
+    {
+        $this->capacity = $capacity;
 
         return $this;
     }

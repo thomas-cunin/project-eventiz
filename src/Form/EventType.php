@@ -18,6 +18,7 @@ class EventType extends AbstractType
             ->add('startAt')
             ->add('endAt')
             ->add('content')
+            ->add('capacity')
             ->add('category', EntityType::class, [
                 'class' => Category::class,
                 'choice_label'=>'name', 

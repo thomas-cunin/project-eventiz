@@ -40,9 +40,6 @@ class EventController extends AbstractController
                 $events = $repo->findAllByContent($request->get('wordToSearch'));
                 dump($request->get('contentToSearch'));
                 $wts = $request->get('wordToSearch');
-            } elseif ($request->get('position')) {
-                dump($request->get('position'));
-                $events = $repo->findAll();
             }
             else {$events = $repo->findAll();}
 
@@ -91,8 +88,6 @@ class EventController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid())
         {   $coord = explode(",", $request->get('coordonates'));
-            $event->setLongitude(0);
-            $event->setLatitude(0);
             $event->setAdress('testland');
             $event->setOrganizer($this->getUser());
             $event->setIsCanceled(false);
