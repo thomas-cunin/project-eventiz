@@ -1,31 +1,221 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello EventController!{% endblock %}
+
 
 {% block body %}
-    <div>
-        <p><strong>{{event.title}}</strong>
-        <br>
-        {{event.content| slice(1, 50)}} [...]
-        <br>
-        Débute le {{event.startAt|date("m/d/Y", "Europe/Paris")}}
-        <br>
-        Fini le {{event.endAt|date("m/d/Y", "Europe/Paris")}}
-        <br>
-        Ajouté le {{event.createdAt|date("m/d/Y", "Europe/Paris")}}
-        <br>
+    
+ <!--Création du container regroupant les informations de l'événement : prix, likes, tickets disponibles et vendus-->
+
+    <div class="container mx-auto bg-purple-50 shadow-md rounded-md">
+
+        <div class="grid justify-items-center grid-cols-4 gap-3 mt-8 pt-4 pb-4">
+
+            <p>Places restantes</p>
+            <p>Places vendues</p>
+            <p>Prix du billet</p>
+            <p>Nombre de likes</p>
+        </div>
+
+        <div class="grid pt-4 pb-8 justify-items-center grid-cols-4 gap-3">
+
+            <p class="resultats"><strong>48</strong></p>
+            <p class="resultats"><strong>502</strong></p>
+            <p class="resultats"><strong>22 €</strong></p>
+            <p class="resultats"><strong>331</strong> <i class="likesNumber fas fa-heart"></i></p>
+        </div>
+
+    </div>
+
+    <!--Description de l'événement-->
+
+    <div class="bioEvent container mx-auto mt-8 mb-16">
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Harum, ducimus.
+            Saepe, nam natus quas harum minus, vel laudantium tempora nobis, quibusdam ducimus dolores
+            dignissimos ab consequuntur dolor debitis iure a error quae. Explicabo, voluptatum? Magnam?
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Harum, ducimus.
+            Saepe, nam natus quas harum minus, vel laudantium tempora nobis, quibusdam ducimus dolores
+            dignissimos ab consequuntur dolor debitis iure a error quae. Explicabo, voluptatum? Magnam?
         </p>
     </div>
-    <div>
-    {% for comment in event.comments %}
-        <br>
-        {{comment.content}}
-        <br>
-        {{comment.user.displayName}}
-    {% endfor %}
-    {{form_start(form)}}
-        {{form_row(form.content)}}
-        <button type="submit">Envoyer</button>
-    {{form_end(form)}}
+
+
+    <!--Achat de tickets et validation de la commande-->
+
+    <div class="buyTickets container mx-auto flex flex-row items-center justify-between align-items">
+
+        <div class="flex flex-row items-center">
+
+            <label for=" custom-input-number" class="bookTickets w-full text-gray-700 text-sm font-semibold">Réservez
+                votre billet :
+            </label>
+
+            <div class="custom-number-inputh-auto w-32 ml-8">
+
+                <div class="flex flex-row h-10 w-full rounded-lg relative bg-transparent mt-1">
+                    <button data-action="decrement"
+                        class=" bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-l cursor-pointer outline-none">
+                        <span class="m-auto text-2xl font-thin">−</span>
+                    </button>
+                    <input type="number"
+                        class="outline-none focus:outline-none text-center w-full bg-gray-300 font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700  outline-none"
+                        name="custom-input-number" value="0"></input>
+                    <button data-action="increment"
+                        class="bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-r cursor-pointer">
+                        <span class="m-auto text-2xl font-thin">+</span>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="flex flex-col items-center mb-16">
+
+            <div class=" flex flex-row items-center">
+
+                <p class="total w-full text-gray-700 text-sm font-semibold">Total = 50 €</p>
+                <i class="reset fas fa-times ml-8"></i>
+
+            </div>
+            <button class="fill mt-4">Commander</button>
+        </div>
+
     </div>
+
+
+
+    <!--Api Maps indiquant le lieu de l'événement-->
+
+
+    <div class="container mx-auto mt-16">
+
+        <h2 class="where mb-8">Comment s'y rendre ?</h2>
+        <iframe width="60%" height="300px" frameborder="0" allowfullscreen
+            src="//umap.openstreetmap.fr/fr/map/carte-sans-nom_651310?scaleControl=false&miniMap=false&scrollWheelZoom=false&zoomControl=true&allowEdit=false&moreControl=true&searchControl=null&tilelayersControl=null&embedControl=null&datalayersControl=true&onLoadPanel=undefined&captionBar=false"></iframe>
+
+        <p class="zoomMap mt-4"><a href="//umap.openstreetmap.fr/fr/map/carte-sans-nom_651310">Voir en plein
+                écran</a></p>
+
+    </div>
+
+
+    <!--Création du container centralisant les commentaires ainsi que le formulaire pour ajouter son propre commentaire-->
+
+
+    <div class="container mx-auto">
+        <div class="antialiased ">
+            <h3 class="mt-32 ml-4 mb-4 text-lg font-semibold text-gray-900">Commentaires</h3>
+
+            <hr class="divider ml-4 mb-16 w-32">
+
+            <div class="space-y-4">
+
+                <div class="flex">
+                    <div class="flex-shrink-0 mr-3">
+                        <img class="mt-2 rounded-full w-8 h-8 sm:w-10 sm:h-10"
+                            src="https://images.unsplash.com/photo-1604426633861-11b2faead63c?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=200&h=200&q=80"
+                            alt="">
+                    </div>
+                    <div class="flex-1 border rounded-lg px-4 py-2 sm:px-6 sm:py-4 leading-relaxed">
+                        <strong>Sarah</strong> <span class="text-xs text-gray-400">15h34 </span>
+                        <p class="text-sm">
+                            Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
+                            sed diam nonumy eirmod tempor invidunt ut labore et dolore
+                            magna aliquyam erat, sed diam voluptua.
+                        </p>
+                        <div class="mt-4 flex items-center">
+                            <div class="flex -space-x-2 mr-2">
+                                <img class="rounded-full w-6 h-6 border border-white"
+                                    src="https://images.unsplash.com/photo-1554151228-14d9def656e4?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=100&h=100&q=80"
+                                    alt="">
+                                <img class="rounded-full w-6 h-6 border border-white"
+                                    src="https://images.unsplash.com/photo-1513956589380-bad6acb9b9d4?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=100&h=100&q=80"
+                                    alt="">
+                            </div>
+                            <div class="text-sm text-gray-500 font-semibold">
+                                5 likes
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex">
+                    <div class="flex-shrink-0 mr-3">
+                        <img class="mt-2 rounded-full w-8 h-8 sm:w-10 sm:h-10"
+                            src="https://images.unsplash.com/photo-1604426633861-11b2faead63c?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=200&h=200&q=80"
+                            alt="">
+                    </div>
+                    <div class="flex-1 border rounded-lg px-4 py-2 sm:px-6 sm:py-4 leading-relaxed">
+                        <strong>Sarah</strong> <span class="text-xs text-gray-400">15:34 </span>
+                        <p class="text-sm">
+                            Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
+                            sed diam nonumy eirmod tempor invidunt ut labore et dolore
+                            magna aliquyam erat, sed diam voluptua.
+                        </p>
+
+                        <h4 class="my-5 uppercase tracking-wide text-gray-400 font-bold text-xs">Réponses</h4>
+
+                        <div class="space-y-4">
+                            <div class="flex">
+                                <div class="flex-shrink-0 mr-3">
+                                    <img class="mt-3 rounded-full w-6 h-6 sm:w-8 sm:h-8"
+                                        src="https://images.unsplash.com/photo-1604426633861-11b2faead63c?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=200&h=200&q=80"
+                                        alt="">
+                                </div>
+                                <div class="flex-1 bg-gray-100 rounded-lg px-4 py-2 sm:px-6 sm:py-4 leading-relaxed">
+                                    <strong>Sarah</strong> <span class="text-xs text-gray-400">3:34 PM</span>
+                                    <p class="text-xs sm:text-sm">
+                                        Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
+                                        sed diam nonumy eirmod tempor invidunt ut labore et dolore
+                                        magna aliquyam erat, sed diam voluptua.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="flex">
+                                <div class="flex-shrink-0 mr-3">
+                                    <img class="mt-3 rounded-full w-6 h-6 sm:w-8 sm:h-8"
+                                        src="https://images.unsplash.com/photo-1604426633861-11b2faead63c?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=200&h=200&q=80"
+                                        alt="">
+                                </div>
+                                <div class="flex-1 bg-gray-100 rounded-lg px-4 py-2 sm:px-6 sm:py-4 leading-relaxed">
+                                    <strong>Sarah</strong> <span class="text-xs text-gray-400">3:34 PM</span>
+                                    <p class="text-xs sm:text-sm">
+                                        Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
+                                        sed diam nonumy eirmod tempor invidunt ut labore et dolore
+                                        magna aliquyam erat, sed diam voluptua.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- Ajout d'un commentaire -->
+            <div class="flex-shrink-0 mr-3 mt-12 mb-12 justify-items-center">
+                <form class=" antialiased mx-auto  w-full max-w-xl bg-white rounded-lg px-4 pt-2">
+                    <div class="flex flex-wrap -mx-3 mb-6">
+
+                        <div class="w-full md:w-full px-3 mb-2 mt-2">
+                            <textarea
+                                class="bg-gray-100 rounded border border-gray-400 leading-normal resize-none w-full h-20 py-2 px-3 font-medium placeholder-gray-700 focus:outline-none focus:bg-white"
+                                name="body" placeholder="Rédigez votre message" required></textarea>
+                        </div>
+                        <div class="w-full md:w-full flex items-start md:w-full px-3">
+                            <div class="flex items-start w-1/2 text-gray-700 px-2 mr-auto">
+
+
+                            </div>
+                            <div class="-mr-1">
+                                <input type='submit'
+                                    class="bg-white text-gray-700 font-medium py-1 px-4 border border-gray-400 rounded-lg tracking-wide mr-1 hover:bg-gray-100"
+                                    value='Ajouter un commentaire'>
+                            </div>
+                        </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}

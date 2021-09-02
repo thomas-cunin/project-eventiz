@@ -1,0 +1,57 @@
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+h2 {
+  font-size: 20px;
+}
+
+.custom-number-input input:focus {
+  outline: none !important;
+}
+
+.custom-number-input button:focus {
+  outline: none !important;
+}
+
+.resultats {
+  font-size: 32px;
+}
+
+.likesNumber {
+  color: red;
+  font-size: 32px;
+}
+
+.bioEvent {
+  font-size: 16px;
+  font-style: italic;
+}
+
+.reset {
+  font-size: 40px;
+  color: red;
+}
+
+.bookTickets {
+  font-size: 16px;
+}
+
+.total {
+  font-size: 22px;
+}
+
+.fill {
+  background-color: red;
+  border-radius: 4px;
+  padding: 10px 80px;
+  font-size: 16px;
+  color: white;
+}
+
+.fill:hover,
+.fill:focus {
+  box-shadow: inset 0 0 0 2em var(--hover);
+}
