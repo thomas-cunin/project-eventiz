@@ -57,6 +57,28 @@ class EventRepository extends ServiceEntityRepository
         ;
     }
 
+    //    /**
+    //  * @return Event[] Returns an array of Event objects
+    //  */
+    // public function findAllByCategorys(...$categorys) // 
+    // {
+    //     $where = '';
+    //     foreach ($categorys as $cat){
+
+    //     }
+    //     $qb = $this->createQueryBuilder('e');
+    //     foreach ($categorys as $category)
+    //     {
+    //         $qb->andWhere('e.content LIKE :cat')
+    //         ->setParameter('cat', );
+    //     }
+    //         $qb->orderBy('e.createdAt', 'DESC')
+            
+            
+    //     ;
+    //     return $qb->getQuery()->getResult();
+    // }
+
     //   /**
     //  * @return Event[] Returns an array of Event objects
     //  */

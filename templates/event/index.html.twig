@@ -19,7 +19,7 @@
     <li><button type="submit" class="button is-link" value="asc" name="orderby" href="#">Date croissante</button></li>
     <li><button type="submit" class="button is-link" value="desc" name="orderby" href="#">Date décroissante</button></li>
     <li><button type="submit" class="button is-link" name="" href="#">Popularité</button></li>
-    <li><button type="submit" class="button is-link" id="positionButton" name="position" href="#">Proche</button></li>
+    <li><button type="submit" class="button is-link" value="forUser" name="forUser" href="#">Ce qui m'interesse</button></li>
     {# <li class="is-active"><a href="#" aria-current="page">Breadcrumb</a></li> #}
     </form>
     <li>
@@ -69,11 +69,17 @@
         <a type="button" href="{{path('editEvent', {id: event.id})}}">Modifier</a>
         <a type="button" href="{{path('removeEvent', {id: event.id})}}">Supprimmer</a>
         <a type="button" href="{{path('likeEvent', {id: event.id})}}">Liker</a>
-        {{event.likes|length}} likes !
+        {{event.likes|length}} likes !  
+        <a type="button" href="{{path('subscription', {id: event.id})}}">Participer</a>
+        {{event.subscriptions|length}} participants !  {{event.progress}} %
+        <hr>
         <hr>
         </p>
     </div>
     {% endfor %}
+    <div class="navigation">
+    {{ knp_pagination_render(events) }}
+</div>
 {% endblock %}
 {% block javascripts %}
 <script>
