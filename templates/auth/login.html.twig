@@ -1,11 +1,53 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Hello AuthController!{% endblock %}
-
+{% extends "base.html.twig" %}
+{% block stylesheets %}
+ <style>
+            .login{
+            /*
+                background: url('https://tailwindadmin.netlify.app/dist/images/login-new.jpeg');
+            */
+            /*background: url('http://bit.ly/2gPLxZ4');*/
+            background-image: url('{{asset('assets/img/others/img4.jpg')}}');
+            background-repeat: no-repeat;
+            background-size: cover;
+            }
+    </style>
+{% endblock %}
+{% block header %}{% endblock %}
 {% block body %}
-    <form method="POST">
-    <input type="text" name="_username"></input>
-    <input type="text" name="_password"></input>
-    <button type="submit" >Se connecter</button>
-    </form>
+
+            <div class="h-screen font-sans login bg-cover relative">
+            <h2 class="absolute text-white top-6 ml-6 z-10"><a href="{{path('home')}}" class="text-4xl font-bold hover:text-gray-300">Eventiz</a></h2>
+            <div class="container mx-auto h-full flex flex-1 justify-center items-center">
+                <div class="w-full max-w-lg">
+                <div class="leading-loose">
+                    <form class="max-w-sm m-4 p-10 bg-white bg-opacity-25 rounded shadow-xl" method="post">
+                        <p class="text-white font-medium text-center text-lg font-bold">LOGIN</p>
+                        <div class="">
+                            <label class="block text-sm text-white" for="email">Pseudo</label>
+                            <input class="w-full px-5 py-1 text-gray-700 bg-gray-300 rounded focus:outline-none focus:bg-white focus:ring-2 focus:ring-green-600"
+                             type="text" id="email"  placeholder="Nom Utilisateur" aria-label="email" name="_username" required>
+                        </div>
+                        <div class="mt-2">
+                            <label class="block  text-sm text-white">mot de passe</label>
+                            <input class="w-full px-5 py-1 text-gray-700 bg-gray-300 rounded focus:outline-none focus:bg-white focus:ring-2 focus:ring-green-600"
+                            type="password" id="password" placeholder="Mot de passe" arial-label="password" name="_password" required>
+                        </div>
+
+                        <div class="mt-4 w-full">
+                            <button class="px-4 py-1 w-full text-white font-light tracking-wider bg-gray-900 hover:bg-gray-800 rounded"
+                            type="submit">Connexion</button>
+                        </div>
+                        <div class="text-right">
+                            <a class="inline-block right-0 align-baseline text-white font-semibold   hover:text-red-400 underline cursor-pointer">
+                                Mot de passe oublier
+                            </a>
+                        </div>
+
+                    </form>
+
+                </div>
+                </div>
+            </div>
+            </div>
+{% block footer %}{% endblock %}
 {% endblock %}

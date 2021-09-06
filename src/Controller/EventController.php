@@ -6,6 +6,7 @@ use App\Entity\Event;
 use App\Entity\Comment;
 use App\Form\EventType;
 use App\Form\CommentType;
+use App\Repository\CategoryRepository;
 use App\Service\LocationService;
 use App\Repository\EventRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -20,55 +21,75 @@ class EventController extends AbstractController
     /**
      * @Route("/", name="home")
      */
-    public function index(EventRepository $repo, LocationService $loc, Request $request, PaginatorInterface $paginator): Response
+    public function index(EventRepository $eventRepository, LocationService $loc, Request $request, PaginatorInterface $paginator, CategoryRepository $categoryRepository): Response
     {
+
+        //searchByCity
+        $searchByCity = $request->get('searchByCity');
+        $orderby = $request->get('orderBy');
+        $query = $request->get('query');
+        $startAt = $request->get('date');
+        $category = $request->get('category');
+
+        // $events = $eventRepository->findAllByContent($query);
         
-        $wts = uniqid();
-        if ($request->get('orderby')){
-            switch ($request->get('orderby')) {
-                
-                case 'asc':
-                    $events = $paginator->paginate(
-                        $repo->findAllByCreatedAtAsc(), /* query NOT result */
-                        $request->query->getInt('page', 1), /*page number*/
-                        5 /*limit per page*/
-                    );
-                    dump($request->get('orderby'));
-                    break;
-                
-                case 'desc':
-                    $events = $paginator->paginate(
-                        $repo->findAllByCreatedAtDesc(), /* query NOT result */
-                        $request->query->getInt('page', 1), /*page number*/
-                        5 /*limit per page*/
-                    );
-                    dump($request->get('orderby'));
-                    break;
-            }}
-            elseif ($request->get('wordToSearch')) {
-                $events = $paginator->paginate(
-                    $repo->findAllByContent($request->get('wordToSearch')), /* query NOT result */
+
+        $events = $paginator->paginate(
+            $eventRepository->findAllByTitleAndCategoryAndDateAndCity($query, $category, $startAt, $searchByCity),
                     $request->query->getInt('page', 1), /*page number*/
                     5 /*limit per page*/
-                );
-                dump($request->get('contentToSearch'));
-                $wts = $request->get('wordToSearch');
-            } 
-            // elseif($request->get('wtegoryToSearch')){
-            //     // dd($this->getUser()->getLikedCategorys());
+        );
+        
+
+        
+        // $wts = uniqid();
+        // if ($request->get('orderby')){
+        //     switch ($request->get('orderby')) {
+                
+        //         case 'asc':
+        //             $events = $paginator->paginate(
+        //                 $repo->findAllByCreatedAtAsc(), /* query NOT result */
+        //                 $request->query->getInt('page', 1), /*page number*/
+        //                 5 /*limit per page*/
+        //             );
+        //             dump($request->get('orderby'));
+        //             break;
+                
+        //         case 'desc':
+        //             $events = $paginator->paginate(
+        //                 $repo->findAllByCreatedAtDesc(), /* query NOT result */
+        //                 $request->query->getInt('page', 1), /*page number*/
+        //                 5 /*limit per page*/
+        //             );
+        //             dump($request->get('orderby'));
+        //             break;
+        //     }}
+        // elseif($request->get('wordToSearch')) {
+        //         $events = $paginator->paginate(
+        //             $repo->findAllByContent($request->get('wordToSearch')), /* query NOT result */
+        //             $request->query->getInt('page', 1), /*page number*/
+        //             5 /*limit per page*/
+        //         );
+        //         dump($request->get('contentToSearch'));
+        //         $wts = $request->get('wordToSearch');
+        //     } 
+        //     // elseif($request->get('wtegoryToSearch')){
+        //     //     // dd($this->getUser()->getLikedCategorys());
 
 
-            // }
-            else {$events = $paginator->paginate(
-                $repo->findAll(), /* query NOT result */
-                $request->query->getInt('page', 1), /*page number*/
-                5 /*limit per page*/
-            );}
+        //     // }
+        //     else {$events = $paginator->paginate(
+        //         $repo->findAll(), /* query NOT result */
+        //         $request->query->getInt('page', 1), /*page number*/
+        //         5 /*limit per page*/
+        //     );}
 
-
+        
         return $this->render('event/index.html.twig', [
             'events' => $events,
-            'wordToSearch' => $wts,
+            'query' => $query,
+            'categories' => $categoryRepository->findAll(),
+            'searchByCity' => $searchByCity
         ]);
     }
 
@@ -91,6 +112,7 @@ class EventController extends AbstractController
         return $this->render('event/one_event.html.twig', [
             'event' => $event,
             'form' => $form->createView()
+            
         ]);
     }
 
