@@ -1,4 +1,5 @@
 {% extends 'base.html.twig' %}
+{% form_theme form 'bootstrap_5_layout.html.twig' %}
 
 {% block title %}Hello EventController!{% endblock %}
 
@@ -9,8 +10,9 @@
             {{form_row(form.content)}}
             {{form_row(form.startAt)}}
             {{form_row(form.endAt)}}
-            {{form_row(form.capacity)}} (Ne mettez rien si il n'y a aps de limite à indiquer )
-            <button type="submit" class="">Valider</button>
+            {{form_row(form.capacity)}} (Ne mettez rien si il n'y a pas de limite à indiquer )
+            {{form_row(form.category)}}
+            <button type="submit" class="btn btn-success">Ajouter cet évenement</button>
         {{form_end(form)}}
     </div>
 {% endblock %}

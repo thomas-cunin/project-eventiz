@@ -174,7 +174,7 @@
                     </div>
                     <div class="flex-1 border rounded-lg px-4 py-2 sm:px-6 sm:py-4 leading-relaxed">
                         {% for comment in event.comments %}
-                        <strong>{{comment.user}}</strong> <span class="text-xs text-gray-400">{{comment.createdAt}}</span>
+                        <strong>{{comment.user.username}}</strong> <span class="text-xs text-gray-400">{{comment.createdAt|date("d/m/Y")}}</span>
                         <p class="text-sm">
                             {{comment.content}}
                         </p>
@@ -205,7 +205,7 @@
                     
                     <div class="flex-1 border rounded-lg px-4 py-2 sm:px-6 sm:py-4 leading-relaxed">
                     {% for comment in event.comments %}
-                        <strong>{{comment.user}}</strong> <span class="text-xs text-gray-400">{{comment.createdAt}}</span>
+                        <strong>{{comment.user.username}}</strong> <span class="text-xs text-gray-400">{{comment.createdAt|date("d/m/Y")}}</span>
                         <p class="text-sm">
                             {{comment.content}}
                         </p>
@@ -220,7 +220,7 @@
                             alt="Photo de profil">
                                 </div>
                                 <div class="flex-1 bg-gray-100 rounded-lg px-4 py-2 sm:px-6 sm:py-4 leading-relaxed">
-                                    <strong>{{comment.user}}</strong> <span class="text-xs text-gray-400">{{comment.createdAt}}</span>
+                                    <strong>{{comment.user.username}}</strong> <span class="text-xs text-gray-400">{{comment.createdAt|date("d/m/Y")}}</span>
                                     <p class="text-xs sm:text-sm">
                                        {{comment.content}}
                                     </p>
@@ -235,7 +235,7 @@
                                 </div>
                                 <div class="flex-1 bg-gray-100 rounded-lg px-4 py-2 sm:px-6 sm:py-4 leading-relaxed">
                                     {% for comment in event.comments %}
-                                    <strong>{{comment.user}}</strong> <span class="text-xs text-gray-400">{{comment.createdAt}}</span>
+                                    <strong>{{comment.user.username}}</strong> <span class="text-xs text-gray-400">{{comment.createdAt|date("d/m/Y")}}</span>
                                     <p class="text-xs sm:text-sm">
                                        {{comment.content}}
                                     </p>
@@ -301,7 +301,7 @@
                                 {{event.content|slice(0, 200)}}...
                             </div>
                             <div class="relative mt-2 lg:absolute bottom-0 mb-4 md:hidden lg:block">
-                                <p class="inline bg-blue-300 py-1 px-2 rounded-full text-xs text-gray-700">{{event.startAt|date("d/m/Y")}} - {{event.endAt|date("d/m/Y")}}</p>
+                                <p class="inline bg-blue-300 py-1 px-2 rounded-full text-xs text-gray-700">{{event.startAt| date("d/m/Y")}} - {{event.endAt | date("d/m/Y")}}</p>
                                 
                                 <a class="inline bg-purple-300 py-1 px-2 rounded-full text-xs text-gray-700" href="#">En
                                     savoir plus</a>

@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\EventRepository;
+use App\Repository\SubscriptionRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -91,6 +92,12 @@ class Event
      * @ORM\Column(type="integer", nullable=true)
      */
     private $capacity;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $priceInfo;
+
 
     public function __construct()
     {
@@ -366,6 +373,29 @@ class Event
     public function setCapacity(?int $capacity): self
     {
         $this->capacity = $capacity;
+
+        return $this;
+    }
+
+    public function getProgress(): ?int // Calcul la progression en %
+    {
+        $subs = $this->subscriptions->count();
+            
+             if(!$this->capacity) {
+                return null;
+            }elseif ($subs == 0){return 0;}
+        $max = $this->capacity;
+        return ($subs / $max) * 100;
+    }
+
+    public function getPriceInfo(): ?string
+    {
+        return $this->priceInfo;
+    }
+
+    public function setPriceInfo(?string $priceInfo): self
+    {
+        $this->priceInfo = $priceInfo;
 
         return $this;
     }
