@@ -93,6 +93,11 @@ class Event
      */
     private $capacity;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $priceInfo;
+
 
     public function __construct()
     {
@@ -381,5 +386,17 @@ class Event
             }elseif ($subs == 0){return 0;}
         $max = $this->capacity;
         return ($subs / $max) * 100;
+    }
+
+    public function getPriceInfo(): ?string
+    {
+        return $this->priceInfo;
+    }
+
+    public function setPriceInfo(?string $priceInfo): self
+    {
+        $this->priceInfo = $priceInfo;
+
+        return $this;
     }
 }
