@@ -1,0 +1,65 @@
+/* card */
+
+/* Animate the size, outside */
+.pulse:hover {
+  animation: animate 2s linear infinite;
+}
+
+@keyframes animate {
+  0% {
+    box-shadow: 0 0 0 0 rgba(0, 206, 209, 0.7);
+  }
+  40% {
+    box-shadow: 0 0 0 20px rgba(0, 206, 209, 0);
+  }
+  80% {
+    box-shadow: 0 0 0 50px rgba(0, 206, 209, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(0, 206, 209, 0);
+  }
+}
+
+.heart path {
+  fill: transparent;
+  stroke-width: 40;
+  stroke: rgb(255, 0, 0);
+}
+
+.heart a path {
+  stroke-dasharray: 1560;
+  stroke-dashoffset: 0;
+}
+
+.heart a:hover path {
+  animation: animate-heart 2s linear forwards;
+}
+
+@keyframes animate-heart {
+  0% {
+    stroke-dashoffset: 0;
+  }
+  40% {
+    stroke-dashoffset: 1560;
+  }
+  80% {
+    stroke-dashoffset: 3120;
+    fill: transparent;
+  }
+  100% {
+    stroke-dashoffset: 3120;
+    fill: rgba(214, 18, 18, 0.878);
+  }
+}
+
+.progress {
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: progress-animate 4s cubic-bezier(1, 0, 0.5, 1) forwards;
+}
+
+@keyframes progress-animate {
+  100% {
+    transform: scale(1);
+  }
+}

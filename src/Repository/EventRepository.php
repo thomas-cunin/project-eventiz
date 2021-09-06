@@ -49,13 +49,16 @@ class EventRepository extends ServiceEntityRepository
     public function findAllByContent($word) // 
     {
         return $this->createQueryBuilder('e')
-            ->andWhere('e.content LIKE :val')
+            ->andWhere('e.content LIKE :val or e.title LIKE :val')
             ->setParameter('val', '%'.$word.'%')
             ->orderBy('e.createdAt', 'DESC')
             ->getQuery()
             ->getResult()
         ;
     }
+
+
+    
 
     //    /**
     //  * @return Event[] Returns an array of Event objects
@@ -122,4 +125,57 @@ class EventRepository extends ServiceEntityRepository
         ;
     }
     */
+
+
+
+
+
+    
+       /**
+     * @return Event[] Returns an array of Event objects
+     */
+    public function findAllByTitleAndCategoryAndDateAndCity($query=null, $category=null, $startAt=null, $city=null) // 
+    {
+    
+        dump($query);
+       $queryBulder = $this->createQueryBuilder('e');
+       $parameters = [];
+
+       if($query != null){
+        $queryBulder 
+        ->andWhere('e.content LIKE :val or e.title LIKE :val');
+        $parameters['val'] = '%'.$query.'%';
+       }
+
+       if($category != null){
+        $queryBulder 
+        ->innerJoin('e.category','c')
+        ->andWhere('c.id = :category ');
+        $parameters['category'] = $category;
+       }
+
+       
+    //    if($date != null){
+    //        $date = (new \DateTime($date))->format('Y-m-d H:i:00');
+    //        dump($date);
+    //     $queryBulder 
+    //     ->andWhere('e.createdAt >= :createdAt');
+    //     $parameters['createdAt'] = $startAt;
+    //    }
+
+    //    if($city != null){
+    //     $queryBulder 
+    //     ->innerJoin('e.city','c')
+    //     ->andWhere('c.id = :category ');
+    //     $parameters['category'] = $category;
+    //    }
+
+       $queryBulder 
+            ->setParameters($parameters)
+            ->orderBy('e.createdAt', 'DESC')
+            
+            // ->getResult()
+        ;
+        return $queryBulder->getQuery();
+    }
 }

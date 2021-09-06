@@ -32,6 +32,7 @@ class UserType extends AbstractType
                 // 'attr' => ['class' => 'tinymce']
                 'required' => false,
             ])
+            ->add('isOrganizer')
             
         ;
     }
