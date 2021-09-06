@@ -28,9 +28,11 @@ class EventFixtures extends Fixture
             if ($user->getIsOrganizer()){
                 $user->setDisplayName($faker->unique()->company);
                 $user->setEmail($faker->unique()->companyEmail);
+                $user->setRoles(['ROLE_ORGUSER']);
             } else {
                 $user->setDisplayName($faker->unique()->name);
                 $user->setEmail($faker->unique()->freeEmail);
+                $user->setRoles(['ROLE_USER']);
             }
             $password = '$2y$13$RtJkz9.primIiuykg0Jp1ulnGpsmhfJ9G2MhhlWOyiSksXcM8riZi';
             $user->setPassword($password);

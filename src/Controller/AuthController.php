@@ -55,7 +55,11 @@ class AuthController extends AbstractController
             $image->setUser($user);
             $file->move($this->getParameter('image_dir'), $fileName);
             $em->persist($image);
-                
+            }
+            if ($user->getIsOrganizer())
+                {$user->setRoles(['ROLE_ORGUSER']);}
+             else {
+                $user->setRoles(['ROLE_USER']);
             }
             // dd($user);
             
