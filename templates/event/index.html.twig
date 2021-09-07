@@ -31,7 +31,12 @@
 					class="carde w-full h-56   flex border-2 border-gray-200 rounded-lg shadow-sm  mb-3 bg-white" data-aos="fade-up">
 					{# card image #}
 					<div class="card-image h-full w-1/4 p-1 rounded mr-2">
+					{% if event.image.page is defined %}
 						<img src="{{asset('upload/images/' ~ event.image.path)}}" alt="" class="h-full w-full rounded"></div>
+					{% else %}
+						<img src="{{asset('upload/images/default_event.jpg')}}" alt="" class="h-full w-full rounded"></div>
+					{% endif %}
+						
 					{# card content #}
 					<div
 						class="card-content h-full w-3/4 relative">
@@ -68,7 +73,7 @@
 								</strong>
 								{# <strong class="mr-10 "><a href="#" class=""><i class="far fa-heart text-2xl hover:text-gray-700 pulse"></i></a> 300</strong> #}
 								<strong class="heart mr-6 flex items-end ">
-                                <a href="" class="inline-block w-6 mr-1">
+                                <a href="{{path('likeEvent', {id:event.id})}}" class="inline-block w-6 mr-1">
                                 <svg viewBox="-20 -28 550.00002 512" xmlns="http://www.w3.org/2000/svg"><path d="m471.382812 44.578125c-26.503906-28.746094-62.871093-44.578125-102.410156-44.578125-29.554687 0-56.621094 9.34375-80.449218 27.769531-12.023438 9.300781-22.917969 20.679688-32.523438 33.960938-9.601562-13.277344-20.5-24.660157-32.527344-33.960938-23.824218-18.425781-50.890625-27.769531-80.445312-27.769531-39.539063 0-75.910156 15.832031-102.414063 44.578125-26.1875 28.410156-40.613281 67.222656-40.613281 109.292969 0 43.300781 16.136719 82.9375 50.78125 124.742187 30.992188 37.394531 75.535156 75.355469 127.117188 119.3125 17.613281 15.011719 37.578124 32.027344 58.308593 50.152344 5.476563 4.796875 12.503907 7.4375 19.792969 7.4375 7.285156 0 14.316406-2.640625 19.785156-7.429687 20.730469-18.128907 40.707032-35.152344 58.328125-50.171876 51.574219-43.949218 96.117188-81.90625 127.109375-119.304687 34.644532-41.800781 50.777344-81.4375 50.777344-124.742187 0-42.066407-14.425781-80.878907-40.617188-109.289063zm0 0"/></svg>
                                 </a>
                                 <strong>{{event.likes|length}}</strong>
@@ -174,7 +179,7 @@
 	</div>
 </div>
 {# Pagination #}
-<div class="w-3/5 my-4 relative">
+{# <div class="w-3/5 my-4 relative">
 	<ul class="flex w-full justify-center">
 		<li class="mx-1 px-3 py-2 bg-gray-200 text-gray-500 rounded-lg">
 			<a class="flex items-center font-bold" href="#">
@@ -196,7 +201,7 @@
 			</a>
 		</li>
 	</ul>
-</div>
+</div> #}
 
 <script>
 	AOS.init();
