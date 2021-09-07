@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-{% form_theme form 'tailwind_2_layout.html.twig' %}
+{# {% form_theme form 'tailwind_2_layout.html.twig' %} #}
 
 {% block title %}Hello EventController!{% endblock %}
 
@@ -16,7 +16,7 @@
                    
                 {% if app.user %}
                     <ul class="flex h-full items-center ">
-                        <li class="mr-4"><a href="{{path('addEvent')}}"><strong>Ajouter un evenement</strong></a></li>
+                      
                         <li class="mr-4 text-xl uppercase "><strong>{{app.user.displayName}}</strong></li>
                         <li><a href="{{path("logout")}}" class="px-3 py-2 border-2 border-white hover:text-white hover:bg-green-500 rounded">
                             <span class="material-icons-outlined text-white"><i class="fas fa-sign-out-alt text-xl"></i></span>
@@ -41,33 +41,33 @@
 
 {% endblock %}
 {% block body %}
-    <div class="h-full flex justify-center items-center py-20">
-        <div class="bg-white md:py-8 md:px-12 px-6 py-4 w-3/5 lg:w-6/12 mt-4 rounded-lg border shadow ">
-                    <label class="block text-grey-darker text-xl font-bold mb-2 w-full text-center">Ajouter un evenement</label>
-                    <form method="post">
-                        {# titre #}
+<div class="w-100 h-full">
+    
+                    
+                    {# <form method="post">
+                        titre
                         <div class="mb-4">
                             <label class="block text-grey-darker text-sm font-bold mb-2">Titre</label>
                             <input class=" border rounded w-full py-2 px-3 text-grey-darker focus:ring-2 focus:ring-green-600 outline-none" type="text"
                                 name="titre" id="student_id" value="" placeholder="Titre">
                         </div>
 
-                        {# contenu #}
+                        contenu
                         <div class="mb-4">
                             <label class="block text-grey-darker text-sm font-bold mb-2">contenu</label>
                             <textarea name="content" class=" border rounded w-full py-2 px-3 text-grey-darker focus:ring-2 focus:ring-green-600 outline-none">
                             </textarea>
                         </div>
 
-                        {# date #}
+                        date
                         <div class="flex flex-wrap">
-                            {# date de debut #}
+                            date de debut
                             <div class="mb-4 md:mr-3 flex-1 box-border">
                                 <label class="block text-grey-darker text-sm font-bold mb-2">date de debut</label>
                                 <input class=" border rounded w-full py-2 px-3 text-grey-darker focus:ring-2 focus:ring-green-600 outline-none" type="datetime-local"
                                     name="startAt" id="addmission_date" >
                             </div>
-                            {# date de fin #}
+                            date de fin
                             <div class="mb-4 flex-1">
                                 <label class="block text-grey-darker text-sm font-bold mb-2">date de fin</label>
                                 <input class=" border rounded w-full py-2 px-3 text-grey-darker focus:ring-2 focus:ring-green-600 outline-none" type="datetime-local"
@@ -77,13 +77,13 @@
 
                         
                         <div class="flex flex-wrap">
-                            {# capacite #}
+                            capacite
                             <div class="mb-4 md:mr-3 flex-1">
                                 <label class="block text-grey-darker text-sm font-bold mb-2">places</label>
                                 <input class=" border rounded w-full py-2 px-3 text-grey-darker focus:ring-2 focus:ring-green-600 outline-none" type="number"
                                     name="capacity" id="addmission_date" >
                             </div>
-                            {# categorie #}
+                            categorie
                             <div class="mb-4 flex-1">
                                 <label class="block text-grey-darker text-sm font-bold mb-2">Categories</label>
                                 <select class="block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded h-10 px-4 md:w-full focus:ring-2 focus:ring-green-600 outline-none" required="required" name="category" id="integration_city_id">
@@ -101,23 +101,28 @@
                                 Enregistrer
                              </button>
                         </div>
-
-
-                    
-                    </form>
-
-                {# {{form_start(form)}}
-                   
-                    {{form_row(form.content)}}
+                    </form> #}
+    <div class="w-100 bg-blue-100 flex justify-center items-center">
+        <div class="w-3/5 py-5">
+                {{form_start(form)}}
+                   {{form_row(form.title)}}
+                    {{form_row(form.content, {'attr':{
+                        'class':"border rounded w-full py-2 px-3 text-grey-darker focus:ring-2 focus:ring-green-600 outline-none"
+                    }})}}
                     {{form_row(form.startAt)}}
                     {{form_row(form.endAt)}}
+                    {{form_row(form.city, {'attr':{
+                        'class':"border rounded w-full py-2 px-3 text-grey-darker focus:ring-2 focus:ring-green-600 outline-none"
+                    }})}}
                     {{form_row(form.capacity)}} (Ne mettez rien si il n'y a pas de limite à indiquer )
+                    {{form_row(form.image)}}
+                    
+                    {{form_row(form.adress)}}
                     {{form_row(form.category)}}
-                    <button type="submit" class="btn btn-success">Ajouter cet évenement</button>
-                {{form_end(form)}} #}
+                   
+                    <button type="submit" class="px-10 py-3 font-bold bg-green-500 text-white rounded">Ajouter cet évenement</button>
+                {{form_end(form)}}
         </div>
     </div>
-{% endblock %}
-{% block javascripts %}
-
+</div>
 {% endblock %}

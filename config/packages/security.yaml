@@ -1,4 +1,8 @@
 security:
+    role_hierarchy:
+        ROLE_ORGUSER: ROLE_USER
+        ROLE_ADMIN:   [ROLE_USER, ROLE_ORGUSER]
+
     access_denied_url: /
     encoders:
         App\Entity\User:
@@ -47,3 +51,4 @@ security:
         - { path: ^/event/edit, roles: ROLE_ORGUSER }
         - { path: ^/category/edit, roles: ROLE_ADMIN }
         - { path: ^/category/add, roles: ROLE_ADMIN }
+        - { path: ^/sub/event, roles: ROLE_USER }

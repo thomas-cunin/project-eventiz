@@ -78,10 +78,16 @@ class EventFixtures extends Fixture
                 $event->setCategory($cat);
                 $event->setOrganizer($usersO[random_int(0, count($usersO) - 1)]);
                 $event->setAdress($faker->address);
+                $event->setCity($faker->city);
                 if (rand(0,5) >= 1.7){
                     $event->setCapacity(random_int(50, 150));
                 }
                 $em->persist($event);
+                $imageE = new Image();
+                $imageE->setPath('default_event.jpg');
+                $imageE->setEvent($event);
+                $imageE->setCreatedAt(new \DateTime());
+                $em->persist($imageE);
                 foreach ($usersNO as $user) {
                     if (rand(0,2) <= 1){
                         $like = new Like();

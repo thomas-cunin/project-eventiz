@@ -9,6 +9,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class EventType extends AbstractType
 {
@@ -18,11 +19,18 @@ class EventType extends AbstractType
             ->add('title')
             ->add('startAt', DateTimeType::class)
             ->add('endAt')
+            ->add('adress')
+            ->add('city')
             ->add('content')
             ->add('capacity')
             ->add('category', EntityType::class, [
                 'class' => Category::class,
                 'choice_label'=>'name', 
+            ])
+            ->add('image', FileType::class, [
+                'mapped'=>false,
+                // 'attr' => ['class' => 'tinymce']
+                'required' => false,
             ])
         ;
     }
