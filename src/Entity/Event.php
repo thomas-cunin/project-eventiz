@@ -303,6 +303,11 @@ class Event
         return $this;
     }
 
+    public function getImage()
+    {
+        return $this->images[0];
+    }
+
 
     public function getOrganizer(): ?User
     {

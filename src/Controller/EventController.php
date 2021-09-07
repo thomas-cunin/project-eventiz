@@ -3,12 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\Event;
+use App\Entity\Image;
 use App\Entity\Comment;
 use App\Form\EventType;
 use App\Form\CommentType;
-use App\Repository\CategoryRepository;
 use App\Service\LocationService;
 use App\Repository\EventRepository;
+use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -146,7 +147,31 @@ class EventController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid())
         {   
+            $file = $form['image']->getData();
+            // compute a random name and try to guess the extension (more secure)
+            if ($file){
+                $extension = $file->guessExtension();
+                if (!$extension) 
+                {
+                    // extension cannot be guessed
+                    $extension = 'bin';
+                }
+            $fileName = uniqid() .'.'. $extension;
+            $image = new Image();
+            $image->setName($file->getClientOriginalName());
+            $image->setPath($fileName);
             
+            $image->setCreatedAt(new \DateTime());
+            $image->setUser($this->getUser());
+            $file->move($this->getParameter('image_dir'), $fileName);
+            $em->persist($image);
+            } else {
+                $image = new Image();
+                $image->setPath('default_event.jpg');
+                $image->setEvent($event);
+                $image->setCreatedAt(new \DateTime());
+                $em->persist($image);
+            }
             $event->setOrganizer($this->getUser());
             $event->setIsCanceled(false);
             $event->setCreatedAt(new \DateTime);

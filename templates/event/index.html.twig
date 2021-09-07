@@ -31,7 +31,7 @@
 					class="carde w-full h-56   flex border-2 border-gray-200 rounded-lg shadow-sm  mb-3 bg-white" data-aos="fade-up">
 					{# card image #}
 					<div class="card-image h-full w-1/4 p-1 rounded mr-2">
-						<img src="{{asset('assets/img/others/img2.jpg')}}" alt="" class="h-full w-full rounded"></div>
+						<img src="{{asset('upload/images/' ~ event.image.path)}}" alt="" class="h-full w-full rounded"></div>
 					{# card content #}
 					<div
 						class="card-content h-full w-3/4 relative">
@@ -57,7 +57,7 @@
 						{# card text description #}
 						<div class="card-text-content mt-1">
 							<h2 class="text-lg font-bold">{{event.category.name}}</h2>
-							<p class="px-2 text-left text-lg break-all text-gray-800">{{event.content}}</p>
+							<p class="px-2 text-left text-lg break-all text-gray-800">{{event.content|slice(0, 250)}}</p>
 						</div>
 						{# card footer container #}
 						<div class="card-footer-content flex absolute bottom-1 w-full">

@@ -83,6 +83,11 @@ class EventFixtures extends Fixture
                     $event->setCapacity(random_int(50, 150));
                 }
                 $em->persist($event);
+                $imageE = new Image();
+                $imageE->setPath('default_event.jpg');
+                $imageE->setEvent($event);
+                $imageE->setCreatedAt(new \DateTime());
+                $em->persist($imageE);
                 foreach ($usersNO as $user) {
                     if (rand(0,2) <= 1){
                         $like = new Like();

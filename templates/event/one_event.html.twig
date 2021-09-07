@@ -6,7 +6,13 @@
 	<link rel="stylesheet" type="text/css" href="{{ asset('/assets/css/oneEvent.css')}}">
 {% endblock %}
 
+{% block headerCenter %}
+<div class="absolute bottom-20 -inset-x-0 z-10 flex justify-center items-center flex-col">
+<p class="text-3xl font-bold text-gray-200 bg-gray-800 bg-opacity-75">{{event.title}}</p>
+<p class="text-xl font-bold text-gray-200 bg-gray-800 bg-opacity-75">Du {{event.startAt| date('d/m/Y')}} au {{event.endAt| date('d/m/Y')}}</p>
+	</div>
 
+{% endblock %}
 {% block body %}
 
 	<!--Création du container regroupant les informations de l'événement : prix, places disponibles et vendues, popularité...-->
