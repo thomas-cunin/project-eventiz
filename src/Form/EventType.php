@@ -17,6 +17,8 @@ class EventType extends AbstractType
             ->add('title')
             ->add('startAt')
             ->add('endAt')
+            ->add('adress')
+            ->add('city')
             ->add('content')
             ->add('capacity')
             ->add('category', EntityType::class, [

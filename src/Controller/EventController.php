@@ -33,12 +33,21 @@ class EventController extends AbstractController
 
         // $events = $eventRepository->findAllByContent($query);
         
+        // if ($searchByCity){
+        //     $events = $paginator->paginate(
+        //     $eventRepository->findAllByCity($searchByCity),
+        //             $request->query->getInt('page', 1), /*page number*/
+        //             4 /*limit per page*/
+        // );
+        // } else {
+            $events = $paginator->paginate(
+                $eventRepository->findAllByContentAndCategoryAndCity($query, $category, $searchByCity),
+                        $request->query->getInt('page', 1), /*page number*/
+                        4 /*limit per page*/
+            );
+        // }
 
-        $events = $paginator->paginate(
-            $eventRepository->findAllByTitleAndCategoryAndDateAndCity($query, $category, $startAt, $searchByCity),
-                    $request->query->getInt('page', 1), /*page number*/
-                    5 /*limit per page*/
-        );
+        
         
 
         
@@ -135,8 +144,7 @@ class EventController extends AbstractController
         $form = $this->createForm(EventType::class,$event);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid())
-        {   $coord = explode(",", $request->get('coordonates'));
-            $event->setAdress('testland');
+        {   
             
             $event->setOrganizer($this->getUser());
             $event->setIsCanceled(false);

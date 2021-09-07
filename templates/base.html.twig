@@ -20,9 +20,7 @@
            {#{{ encore_entry_link_tags('app') }}#}
         {% endblock %}
 
-        {% block javascripts %}
-            {#{{ encore_entry_script_tags('app') }}#}
-        {% endblock %}
+        
 
         <link rel="stylesheet" href="{{asset('assets/css/header.css')}}">
     </head>
@@ -40,26 +38,27 @@
                 <h2><a href="{{path('home')}}" class="text-4xl font-bold hover:text-gray-300">Eventiz</a></h2>
                 {% if app.user %}
                     <ul class="flex h-full items-center ">
-                        <li class="mr-4 text-xl uppercase "><strong>{{app.user.displayName}}</strong></li>
-                        <li><a href="{{path("logout")}}" class="px-3 py-2 border-2 border-white hover:text-white hover:bg-green-500 rounded">
+                        <li class="mr-4 text-xl uppercase "><a href="{{path('myProfile')}}"><strong>{{app.user.displayName}}</strong></a></li>
+                        {% if is_granted('ROLE_ORGUSER') %}
+                        <li><a href="{{path("addEvent")}}" class="px-3 py-2 border-2 border-white hover:text-white hover:bg-green-500 rounded">
+                            <span class="material-icons-outlined text-white"><i class="far fa-calendar-plus text-xl"></i></span>
+                        </a></li>
+                        {% endif %}
+                        <li><a href="{{path("logout")}}" class="ml-2 px-3 py-2 border-2 border-white hover:text-white hover:bg-green-500 rounded">
                             <span class="material-icons-outlined text-white"><i class="fas fa-sign-out-alt text-xl"></i></span>
                         </a></li>
                     </ul>
                 {% else %}
                     <ul class="flex h-full items-center ">
                         <li><a href="{{path("login")}}" class="mr-3 hover:text-gray-300">Login</a></li>
-                        <li><a href="" class="px-4 py-2 border-2 border-green-500 hover:text-white hover:bg-green-500 rounded" >Sign up</a></li>
+                        <li><a href="{{path("register")}}" class="px-4 py-2 border-2 border-green-500 hover:text-white hover:bg-green-500 rounded" >Sign up</a></li>
                     </ul>
                 {% endif %}
             </div>
 
             {# Champ de recherche #}
-            <div class="absolute bottom-20 -inset-x-0 z-10 flex justify-center">
-                <form class="w-3/6 flex">
-                    <input type="text" Placeholder="Rechercher par Ville" class="border-2 border-green-500 rounded w-4/5 px-2 py-2 mr-4 focus:ring-2 focus:ring-green-600 focus:outline-none" name="searchByCity">
-                    <input type="submit" class="rounded w-1/5 px-3 py-2 bg-green-500 text-xl text-white hover:bg-green-600" value="Rechercher" >
-                </form>
-            </div>
+            {% block headerCenter %}
+            {% endblock %}
         </div>
     {% endblock %}
 
@@ -90,5 +89,8 @@
             </div>
         </div>
     {% endblock %}
+    {% block javascripts %}
+            {#{{ encore_entry_script_tags('app') }}#}
+        {% endblock %}
     </body>
 </html>

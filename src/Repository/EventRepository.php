@@ -57,6 +57,19 @@ class EventRepository extends ServiceEntityRepository
         ;
     }
 
+      /**
+     * @return Event[] Returns an array of Event objects
+     */
+    public function findAllByCity($city) // 
+    {
+        return $this->createQueryBuilder('e')
+            ->andWhere('e.city LIKE :val')
+            ->setParameter('val', '%'.$city.'%')
+            ->orderBy('e.createdAt', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 
     
 
@@ -134,10 +147,10 @@ class EventRepository extends ServiceEntityRepository
        /**
      * @return Event[] Returns an array of Event objects
      */
-    public function findAllByTitleAndCategoryAndDateAndCity($query=null, $category=null, $startAt=null, $city=null) // 
+    public function findAllByContentAndCategoryAndCity($query=null, $category=null, $city=null) // 
     {
-    
-        dump($query);
+        
+        dump($city);
        $queryBulder = $this->createQueryBuilder('e');
        $parameters = [];
 
@@ -163,12 +176,11 @@ class EventRepository extends ServiceEntityRepository
     //     $parameters['createdAt'] = $startAt;
     //    }
 
-    //    if($city != null){
-    //     $queryBulder 
-    //     ->innerJoin('e.city','c')
-    //     ->andWhere('c.id = :category ');
-    //     $parameters['category'] = $category;
-    //    }
+       if($city != null){
+        $queryBulder 
+        ->andWhere('e.city LIKE :city ');
+        $parameters['city'] = '%'.$city.'%';
+       }
 
        $queryBulder 
             ->setParameters($parameters)

@@ -78,6 +78,7 @@ class EventFixtures extends Fixture
                 $event->setCategory($cat);
                 $event->setOrganizer($usersO[random_int(0, count($usersO) - 1)]);
                 $event->setAdress($faker->address);
+                $event->setCity($faker->city);
                 if (rand(0,5) >= 1.7){
                     $event->setCapacity(random_int(50, 150));
                 }

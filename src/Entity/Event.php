@@ -98,6 +98,11 @@ class Event
      */
     private $priceInfo;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $city;
+
 
     public function __construct()
     {
@@ -396,6 +401,18 @@ class Event
     public function setPriceInfo(?string $priceInfo): self
     {
         $this->priceInfo = $priceInfo;
+
+        return $this;
+    }
+
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    public function setCity(?string $city): self
+    {
+        $this->city = $city;
 
         return $this;
     }

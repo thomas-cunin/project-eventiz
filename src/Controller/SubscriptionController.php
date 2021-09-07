@@ -44,7 +44,9 @@ class SubscriptionController extends AbstractController
             ]),
             'isSub' => $isSub
         ];
-        return $this->json($data, 200);
+        return $this->redirectToRoute('oneEvent', [
+            'id'=>$event->getId(),
+        ]);
     }
     
 }
