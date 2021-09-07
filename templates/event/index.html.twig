@@ -1,337 +1,318 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Accueil{% endblock %}
+{% block title %}Accueil
+{% endblock %}
 {% block stylesheets %}
-  <link rel="stylesheet" href="{{asset('assets/css/accueil.css')}}">
+	<link rel="stylesheet" href="{{asset('assets/css/accueil.css')}}">
 {% endblock %}
 {% block headerCenter %}
-<div class="absolute bottom-20 -inset-x-0 z-10 flex justify-center">
-                <form class="w-3/6 flex">
-                {% if searchByCity is defined %}
-                    <input type="text" value="{{searchByCity}}" Placeholder="Rechercher par Ville" class="border-2 border-green-500 rounded w-4/5 px-2 py-2 mr-4 focus:ring-2 focus:ring-green-600 focus:outline-none" name="searchByCity">
-                {% else %}
-                    <input type="text" Placeholder="Rechercher par Ville" class="border-2 border-green-500 rounded w-4/5 px-2 py-2 mr-4 focus:ring-2 focus:ring-green-600 focus:outline-none" name="searchByCity">
-                {% endif %}
-                    <input type="submit" class="rounded w-1/5 px-3 py-2 bg-green-500 text-xl text-white hover:bg-green-600" value="Rechercher" >
-                </form>
-            </div>
-            {% endblock %}
+	<div class="absolute bottom-20 -inset-x-0 z-10 flex justify-center">
+		<form class="w-3/6 flex">
+			{% if searchByCity is defined %}
+				<input type="text" value="{{searchByCity}}" placeholder="Rechercher par Ville" class="border-2 border-green-500 rounded w-4/5 px-2 py-2 mr-4 focus:ring-2 focus:ring-green-600 focus:outline-none" name="searchByCity">
+			{% else %}
+				<input type="text" placeholder="Rechercher par Ville" class="border-2 border-green-500 rounded w-4/5 px-2 py-2 mr-4 focus:ring-2 focus:ring-green-600 focus:outline-none" name="searchByCity">
+			{% endif %}
+			<input type="submit" class="rounded w-1/5 px-3 py-2 bg-green-500 text-xl text-white hover:bg-green-600" value="Rechercher">
+		</form>
+	</div>
+{% endblock %}
 {% block body %}
 
 
-  {# body page accueil #}
-  <div class="home w-full h-full px-3 flex  ">
-      {# left box #}
-      <div class="left w-4/5 mr-3 relative" >
-          {% for event in events %}
-            {# CARD #}
-            <div class="carde w-full h-56   flex border-2 border-gray-200 rounded-lg shadow-sm  mb-3 bg-white" data-aos="fade-up">
-                {# card image #}
-                <div class="card-image h-full w-1/4 p-1 rounded mr-2">
-                    <img src="{{asset('assets/img/others/img2.jpg')}}" alt="" class="h-full w-full rounded"></div>
-              {# card content #}
-              <div class="card-content h-full w-3/4 relative">
-                {# card header #}
-                <div class="card-header-content w-full flex justify-between pr-1 pt-1">
-                    <h2 class="text-2xl font-bold ">{{event.title}}</h2>
-                    {# <p class="pr-5"><strong>{{event.startAt | date('d/m/Y')}}</strong></p> #}
-                    <p class="pr-5 flex items-end">
-                        <svg
-                          class="h-5 w-5 fill-current
-                          dark:text-gray-300"
-                          viewBox="0 0 24 24">
-                          <path
-                            d="M19
-                            19H5V8h14m-3-7v2H8V1H6v2H5c-1.11
-                            0-2 .89-2 2v14a2 2 0 002 2h14a2 2
-                            0 002-2V5a2 2 0 00-2-2h-1V1m-1
-                            11h-5v5h5v-5z"></path>
-                        </svg>
-                        <span
-                          class="ml-2 text-sm text-gray-600
-                          dark:text-gray-300 capitalize">
-                          {{event.startAt | date('d/m/Y')}}
-                        </span>
-									</p>
-                </div>
-                {# card text description #}
-                <div class="card-text-content mt-1">
-                  <h2 class="text-lg font-bold">{{event.category.name}}</h2>
-                  <p class="px-2 text-left text-lg break-all text-gray-800">{{event.content}}</p>
-                </div>
-                {# card footer container #}
-                <div class="card-footer-content flex absolute bottom-1 w-full">
-                      <div class="w-1/3 flex items-center">
-                            <strong class="mr-4"><i class="fas fa-map-marker-alt text-2xl"> </i> {{event.city}} </strong>
-                            {# <strong class="mr-10 "><a href="#" class=""><i class="far fa-heart text-2xl hover:text-gray-700 pulse"></i></a> 300</strong> #}
-                            <strong class="heart mr-6 flex items-end ">
-                              <button href="{{path('likeEvent', {id:event.id})}}" class="inline-block w-6 mr-1 likeButton">
-                              <span class="likes">{{event.likes|length}}</span>
+	{# body page accueil #}
+	<div
+		class="home w-full h-full px-3 flex  ">
+		{# left box #}
+		<div class="left w-4/5 mr-3 relative">
+			{% for event in events %}
+				{# CARD #}
+				<div
+					class="carde w-full h-56   flex border-2 border-gray-200 rounded-lg shadow-sm  mb-3 bg-white" data-aos="fade-up">
+					{# card image #}
+					<div class="card-image h-full w-1/4 p-1 rounded mr-2">
+						<img src="{{asset('assets/img/others/img2.jpg')}}" alt="" class="h-full w-full rounded"></div>
+					{# card content #}
+					<div
+						class="card-content h-full w-3/4 relative">
+						{# card header #}
+						<div class="card-header-content w-full flex justify-between pr-1 pt-1">
+							<h2 class="text-2xl font-bold ">{{event.title}}</h2>
+							{# <p class="pr-5"><strong>{{event.startAt | date('d/m/Y')}}</strong></p> #}
+							<p class="pr-5 flex items-end">
+								<svg class="h-5 w-5 fill-current
+									                          dark:text-gray-300" viewbox="0 0 24 24">
+									<path d="M19
+										                            19H5V8h14m-3-7v2H8V1H6v2H5c-1.11
+										                            0-2 .89-2 2v14a2 2 0 002 2h14a2 2
+										                            0 002-2V5a2 2 0 00-2-2h-1V1m-1
+										                            11h-5v5h5v-5z"></path>
+								</svg>
+								<span class="ml-2 text-sm text-gray-600
+										                          dark:text-gray-300 capitalize">
+									{{event.startAt | date('d/m/Y')}}
+								</span>
+							</p>
+						</div>
+						{# card text description #}
+						<div class="card-text-content mt-1">
+							<h2 class="text-lg font-bold">{{event.category.name}}</h2>
+							<p class="px-2 text-left text-lg break-all text-gray-800">{{event.content}}</p>
+						</div>
+						{# card footer container #}
+						<div class="card-footer-content flex absolute bottom-1 w-full">
+							<div class="w-1/3 flex items-center">
+								<strong class="mr-4">
+									<i class="fas fa-map-marker-alt text-2xl"></i>
+									{{event.city}}
+								</strong>
+								{# <strong class="mr-10 "><a href="#" class=""><i class="far fa-heart text-2xl hover:text-gray-700 pulse"></i></a> 300</strong> #}
+								<strong class="heart mr-6 flex items-end ">
+                                <a href="" class="inline-block w-6 mr-1">
+                                <svg viewBox="-20 -28 550.00002 512" xmlns="http://www.w3.org/2000/svg"><path d="m471.382812 44.578125c-26.503906-28.746094-62.871093-44.578125-102.410156-44.578125-29.554687 0-56.621094 9.34375-80.449218 27.769531-12.023438 9.300781-22.917969 20.679688-32.523438 33.960938-9.601562-13.277344-20.5-24.660157-32.527344-33.960938-23.824218-18.425781-50.890625-27.769531-80.445312-27.769531-39.539063 0-75.910156 15.832031-102.414063 44.578125-26.1875 28.410156-40.613281 67.222656-40.613281 109.292969 0 43.300781 16.136719 82.9375 50.78125 124.742187 30.992188 37.394531 75.535156 75.355469 127.117188 119.3125 17.613281 15.011719 37.578124 32.027344 58.308593 50.152344 5.476563 4.796875 12.503907 7.4375 19.792969 7.4375 7.285156 0 14.316406-2.640625 19.785156-7.429687 20.730469-18.128907 40.707032-35.152344 58.328125-50.171876 51.574219-43.949218 96.117188-81.90625 127.109375-119.304687 34.644532-41.800781 50.777344-81.4375 50.777344-124.742187 0-42.066407-14.425781-80.878907-40.617188-109.289063zm0 0"/></svg>
+                                </a>
+                                <strong>{{event.likes|length}}</strong>
+                              </strong>
 
-                              </button>
+								{# <svg viewBox="-20 -28 550.00002 512" xmlns="http://www.w3.org/2000/svg"><path d="m471.382812 44.578125c-26.503906-28.746094-62.871093-44.578125-102.410156-44.578125-29.554687 0-56.621094 9.34375-80.449218 27.769531-12.023438 9.300781-22.917969 20.679688-32.523438 33.960938-9.601562-13.277344-20.5-24.660157-32.527344-33.960938-23.824218-18.425781-50.890625-27.769531-80.445312-27.769531-39.539063 0-75.910156 15.832031-102.414063 44.578125-26.1875 28.410156-40.613281 67.222656-40.613281 109.292969 0 43.300781 16.136719 82.9375 50.78125 124.742187 30.992188 37.394531 75.535156 75.355469 127.117188 119.3125 17.613281 15.011719 37.578124 32.027344 58.308593 50.152344 5.476563 4.796875 12.503907 7.4375 19.792969 7.4375 7.285156 0 14.316406-2.640625 19.785156-7.429687 20.730469-18.128907 40.707032-35.152344 58.328125-50.171876 51.574219-43.949218 96.117188-81.90625 127.109375-119.304687 34.644532-41.800781 50.777344-81.4375 50.777344-124.742187 0-42.066407-14.425781-80.878907-40.617188-109.289063zm0 0"/></svg> #}
+								{# <strong class="likes">{{event.likes|length}}</strong> #}
+							</strong>
+							<strong>
+								<a href="#">
+									<i class="fas fa-share-square text-2xl hover:text-gray-700"></i>
+								</a>
+							</strong>
+						</div>
+						<div class="pourcentage w-2/3 flex items-center pr-1 justify-end">
+							{% if event.capacity %}
+								<i class="fas fa-users mr-2 text-2xl "></i>
 
-                              {# <svg viewBox="-20 -28 550.00002 512" xmlns="http://www.w3.org/2000/svg"><path d="m471.382812 44.578125c-26.503906-28.746094-62.871093-44.578125-102.410156-44.578125-29.554687 0-56.621094 9.34375-80.449218 27.769531-12.023438 9.300781-22.917969 20.679688-32.523438 33.960938-9.601562-13.277344-20.5-24.660157-32.527344-33.960938-23.824218-18.425781-50.890625-27.769531-80.445312-27.769531-39.539063 0-75.910156 15.832031-102.414063 44.578125-26.1875 28.410156-40.613281 67.222656-40.613281 109.292969 0 43.300781 16.136719 82.9375 50.78125 124.742187 30.992188 37.394531 75.535156 75.355469 127.117188 119.3125 17.613281 15.011719 37.578124 32.027344 58.308593 50.152344 5.476563 4.796875 12.503907 7.4375 19.792969 7.4375 7.285156 0 14.316406-2.640625 19.785156-7.429687 20.730469-18.128907 40.707032-35.152344 58.328125-50.171876 51.574219-43.949218 96.117188-81.90625 127.109375-119.304687 34.644532-41.800781 50.777344-81.4375 50.777344-124.742187 0-42.066407-14.425781-80.878907-40.617188-109.289063zm0 0"/></svg> #}
-                              <strong class="likes">{{event.likes|length}}</strong>
-                            </strong>
-                            <strong><a href="#"><i class="fas fa-share-square text-2xl hover:text-gray-700"></i></a></strong>
-                      </div>
-                      <div class="pourcentage w-2/3 flex items-center pr-1 justify-end">
-                      {% if event.capacity %}
-                          <i class="fas fa-users mr-2 text-2xl "></i>
-                          
-                          <div class="bar_progress flex-1 bg-gray-500 rounded mr-2">
-                              <div class="progress bg-green-300 rounded flex justify-center" style="width: {{event.progress}}%">
-                                  <strong>{{event.progress}}%</strong>
-                              </div>
-                          </div>
-                          {% endif %}
-                          <a href="{{path("oneEvent",{id:event.id})}}" class="border-2 border-green-500 px-4 py-1 rounded-lg text-white  text-lg font-bold bg-green-500 hover:bg-green-600 tracking-wide pulse">Voir</a>
-                    </div>
-                </div>
-              </div>
-          </div>
-        {% endfor %}
-<div class=" mt-4">
-{{ knp_pagination_render(events) }}
+								<div class="bar_progress flex-1 bg-gray-500 rounded mr-2">
+									<div class="progress bg-green-300 rounded flex justify-center" style="width: {{event.progress}}%">
+										<strong>{{event.progress}}%</strong>
+									</div>
+								</div>
+							{% endif %}
+							<a href="{{path("oneEvent",{id:event.id})}}" class="border-2 border-green-500 px-4 py-1 rounded-lg text-white  text-lg font-bold bg-green-500 hover:bg-green-600 tracking-wide pulse">Voir</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+		<div class=" mt-4">
+			{{ knp_pagination_render(events) }}
+		</div>
+		{# pagination #}
+		{# <ul class="flex absolute bottom-6 w-full justify-center">
+		            <li class="mx-1 px-3 py-2 bg-gray-200 text-gray-500 rounded-lg">
+		                <a class="flex items-center font-bold" href="#">
+		                    <span class="mx-1">previous</span>
+		                </a>
+		            </li>
+		            <li class="mx-1 px-3 py-2 bg-gray-200 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
+		                <a class="font-bold" href="#">1</a>
+		            </li>
+		            <li class="mx-1 px-3 py-2 bg-gray-200 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
+		                <a class="font-bold" href="#">2</a>
+		            </li>
+		            <li class="mx-1 px-3 py-2 bg-gray-200 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
+		                <a class="font-bold" href="#">3</a>
+		            </li>
+		            <li class="mx-1 px-3 py-2 bg-gray-200 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
+		                <a class="flex items-center font-bold" href="#">
+		                    <span class="mx-1">Next</span>
+		                </a>
+		            </li>
+		      </ul>#}
+	</div>
+
+	{# right box #}
+	<div class="right w-2/5  ">
+		<div class="w-full mx-auto bg-white rounded-lg border-2 border-gray-200  shadow-sm dark:bg-gray-800">
+
+			<div class="mx-16 py-4 px-8 text-black text-xl font-bold border-b border-grey-500">Recherche Avancée
+			</div>
+
+			<form name="student_application" id="student_application">
+				<div class="py-3 px-8">
+					{% if searchByCity is defined %}
+						<input type="hidden" name="searchByCity" value="{{searchByCity}}">
+					{% endif %}
+					{# titre #}
+					<div class="mb-4">
+						<label class="block text-grey-darker text-sm font-bold mb-2">Rechercher par mot clé:</label>
+						<input class=" border rounded w-full py-2 px-3 text-grey-darker focus:ring-2 focus:ring-green-600 outline-none" type="text" name="query" id="student_id" value="" placeholder="Rechercher par mot clé">
+					</div>
+
+					{# categorie #}
+					<div class="w-full  mb-3">
+						<label class="font-semibold text-gray-600 py-2">Categories</label>
+						<select class="block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded h-10 px-4 md:w-full focus:ring-2 focus:ring-green-600 outline-none" name="category" id="integration_city_id">
+							<option value="">Choisir une catégorie</option>
+							{% for category in categories %}
+								<option value="{{category.id}}">{{category.name}}</option>
+							{% endfor %}
+						</select>
+						{# <p class="text-sm text-red-500 hidden mt-3" id="error">Please fill out this field.</p> #}
+					</div>
+
+					{# date de debut #}
+					{# <div class="mb-4">
+					                            <label class="block text-grey-darker text-sm font-bold mb-2">date de debut</label>
+					                            <input class=" border rounded w-full py-2 px-3 text-grey-darker focus:ring-2 focus:ring-green-600 outline-none" type="datetime-local"
+					                                name="startAt" id="addmission_date" >
+					                        </div> #}
+					{# button #}
+						<div class="mb-1 w-full text-center"> <button type="submit" class=" mx-16 rounded py-2 px-20 border-2 border-green-500 font-semibold text-xl text-gray-600 hover:text-white hover:bg-green-500">
+							Rechercher
+						</button>
+					</div>
+				</div>
+			</form>
+
+		</div>
+	</div>
 </div>
-        {# pagination #}
-        {# <ul class="flex absolute bottom-6 w-full justify-center">
-            <li class="mx-1 px-3 py-2 bg-gray-200 text-gray-500 rounded-lg">
-                <a class="flex items-center font-bold" href="#">
-                    <span class="mx-1">previous</span>
-                </a>
-            </li>
-            <li class="mx-1 px-3 py-2 bg-gray-200 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
-                <a class="font-bold" href="#">1</a>
-            </li>
-            <li class="mx-1 px-3 py-2 bg-gray-200 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
-                <a class="font-bold" href="#">2</a>
-            </li>
-            <li class="mx-1 px-3 py-2 bg-gray-200 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
-                <a class="font-bold" href="#">3</a>
-            </li>
-            <li class="mx-1 px-3 py-2 bg-gray-200 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
-                <a class="flex items-center font-bold" href="#">
-                    <span class="mx-1">Next</span>
-                </a>
-            </li>
-      </ul>#}
-      </div> 
-
-      {# right box #}
-      <div class="right w-2/5  ">
-           <div class="w-full mx-auto bg-white rounded-lg border-2 border-gray-200  shadow-sm dark:bg-gray-800">
-
-                <div class="mx-16 py-4 px-8 text-black text-xl font-bold border-b border-grey-500">Recherche Avancée
-                </div>
-
-                <form name="student_application" id="student_application" >
-                    <div class="py-3 px-8">
-                      {% if searchByCity is defined %}
-                        <input type="hidden" name="searchByCity" value="{{searchByCity}}">
-                      {% endif %}
-                        {# titre #}
-                        <div class="mb-4">
-                            <label class="block text-grey-darker text-sm font-bold mb-2">Rechercher par mot clé:</label>
-                            <input class=" border rounded w-full py-2 px-3 text-grey-darker focus:ring-2 focus:ring-green-600 outline-none" type="text"
-                                name="query" id="student_id" value="" placeholder="Rechercher par mot clé">
-                        </div>
-
-                        {# categorie #}
-                        <div class="w-full  mb-3">
-                            <label class="font-semibold text-gray-600 py-2">Categories</label>
-                            <select class="block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded h-10 px-4 md:w-full focus:ring-2 focus:ring-green-600 outline-none" name="category" id="integration_city_id">
-                                <option value="">Choisir une catégorie</option>
-                                {% for category in categories %}
-                                    <option value="{{category.id}}">{{category.name}}</option>
-                                {% endfor %}
-                              </select>
-                            {# <p class="text-sm text-red-500 hidden mt-3" id="error">Please fill out this field.</p> #}
-                        </div>
-
-                        {# date de debut #}
-                        {# <div class="mb-4">
-                            <label class="block text-grey-darker text-sm font-bold mb-2">date de debut</label>
-                            <input class=" border rounded w-full py-2 px-3 text-grey-darker focus:ring-2 focus:ring-green-600 outline-none" type="datetime-local"
-                                name="startAt" id="addmission_date" >
-                        </div> #}
-                        {# button #}
-                        <div class="mb-1 w-full text-center">
-                            <button type="submit"
-                                class=" mx-16 rounded py-2 px-20 border-2 border-green-500 font-semibold text-xl text-gray-600 hover:text-white hover:bg-green-500">
-                                Rechercher
-                            </button>
-                        </div>
-                    </div>
-                </form>
-
-            </div>
-      </div>
-  </div>
-  {# Pagination #}
-  <div class="w-3/5 my-4 relative">
-        <ul class="flex w-full justify-center">
-            <li class="mx-1 px-3 py-2 bg-gray-200 text-gray-500 rounded-lg">
-                <a class="flex items-center font-bold" href="#">
-                    <span class="mx-1">previous</span>
-                </a>
-            </li>
-            <li class="mx-1 px-3 py-2 bg-gray-200 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
-                <a class="font-bold" href="#">1</a>
-            </li>
-            <li class="mx-1 px-3 py-2 bg-gray-200 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
-                <a class="font-bold" href="#">2</a>
-            </li>
-            <li class="mx-1 px-3 py-2 bg-gray-200 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
-                <a class="font-bold" href="#">3</a>
-            </li>
-            <li class="mx-1 px-3 py-2 bg-gray-200 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
-                <a class="flex items-center font-bold" href="#">
-                    <span class="mx-1">Next</span>
-                </a>
-            </li>
-        </ul>
-  </div>
-
-  <script>
-    AOS.init();
-  </script>
-
-{% endblock %}
-
-
-
-
-{# <a href="{{path('register')}}"><h1>Inscription</h1></a>
-<a href="{{path('login')}}"><h1>Connexion</h1></a>
-<a href="{{path('logout')}}"><h1>Déconnexion</h1></a>
-<a href="{{path('addEvent')}}"><h1>Ajouter un évènement</h1></a>
-
-<hr>
-
-<form class="" method="post">
-<nav class="breadcrumb is-centered mt-2 d-flex justify-content-around" aria-label="breadcrumbs">
-  <ul>
-    <li><button type="submit" class="button is-link" value="asc" name="orderby" href="#">Date croissante</button></li>
-    <li><button type="submit" class="button is-link" value="desc" name="orderby" href="#">Date décroissante</button></li>
-    <li><button type="submit" class="button is-link" name="" href="#">Popularité</button></li>
-    <li><button type="submit" class="button is-link" value="forUser" name="forUser" href="#">Ce qui m'interesse</button></li>
-    {# <li class="is-active"><a href="#" aria-current="page">Breadcrumb</a></li> #}
-    {# </form>
-    <li>
-    <form method="post">
-    <div class="field has-addons">
-    <div class="control">
-      <input type="text" class="form-control" name="wordToSearch"></input>
-    </div>
-    <div class="control">
-      <button type="submit" class="button is-link">Chercher</button>
-      </div>
-      </div>
-      </li>
-    </form> #}
-    {# <li>
-      
-    </li>
-    <li>
-    <form method="post">
-    <div class="field has-addons">
-    <div class="control">
-      <input type="text" class="form-control" name="userToSearch" Placeholder="Xx_DarkSasuke_xX"></input>
-    </div>
-    <div class="control">
-      <button type="submit" class="button is-link">Chercher</button>
-      </div>
-      </div>
-      </li>
-    </form>
-    <hr>
-    <div style="background-color:blue; w">
-    </div>
-    {% for event in events %}
-    <div>
-        <p><a href="{{path('oneEvent', {id: event.id})}}"><strong>{{event.title}}</strong></a>
-        <br>
-        {{event.content| slice(1, 50)}} [...]
-        <br>
-        Débute le {{event.startAt|date("m/d/Y", "Europe/Paris")}}
-        <br>
-        Fini le {{event.endAt|date("m/d/Y", "Europe/Paris")}}
-        <br>
-        Ajouté le {{event.createdAt|date("m/d/Y", "Europe/Paris")}}
-        <br>
-        <a href="{{path('oneCategory', {name:event.category.name})}}"><h3>{{event.category.name}}</h3></a>
-        <hr>
-        <a type="button" href="{{path('editEvent', {id: event.id})}}">Modifier</a>
-        <a type="button" href="{{path('removeEvent', {id: event.id})}}">Supprimmer</a>
-        <a type="button" href="{{path('likeEvent', {id: event.id})}}">Liker</a>
-        {{event.likes|length}} likes !  
-        <a type="button" href="{{path('subscription', {id: event.id})}}">Participer</a>
-        {{event.subscriptions|length}} participants !  {{event.progress}} %
-        <hr>
-        <hr>
-        </p>
-    </div> #}
-    {# {% endfor %}
-    <div class="navigation">
-    {{ knp_pagination_render(events) }}
+{# Pagination #}
+<div class="w-3/5 my-4 relative">
+	<ul class="flex w-full justify-center">
+		<li class="mx-1 px-3 py-2 bg-gray-200 text-gray-500 rounded-lg">
+			<a class="flex items-center font-bold" href="#">
+				<span class="mx-1">previous</span>
+			</a>
+		</li>
+		<li class="mx-1 px-3 py-2 bg-gray-200 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
+			<a class="font-bold" href="#">1</a>
+		</li>
+		<li class="mx-1 px-3 py-2 bg-gray-200 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
+			<a class="font-bold" href="#">2</a>
+		</li>
+		<li class="mx-1 px-3 py-2 bg-gray-200 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
+			<a class="font-bold" href="#">3</a>
+		</li>
+		<li class="mx-1 px-3 py-2 bg-gray-200 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
+			<a class="flex items-center font-bold" href="#">
+				<span class="mx-1">Next</span>
+			</a>
+		</li>
+	</ul>
 </div>
-{% endblock %}#}
+
+<script>
+	AOS.init();
+</script>{% endblock %}{# <a href="{{path('register')}}"><h1>Inscription</h1></a>
+	<a href="{{path('login')}}"><h1>Connexion</h1></a>
+	<a href="{{path('logout')}}"><h1>Déconnexion</h1></a>
+	<a href="{{path('addEvent')}}"><h1>Ajouter un évènement</h1></a>
+	
+	<hr>
+	
+	<form class="" method="post">
+	<nav class="breadcrumb is-centered mt-2 d-flex justify-content-around" aria-label="breadcrumbs">
+	  <ul>
+	    <li><button type="submit" class="button is-link" value="asc" name="orderby" href="#">Date croissante</button></li>
+	    <li><button type="submit" class="button is-link" value="desc" name="orderby" href="#">Date décroissante</button></li>
+	    <li><button type="submit" class="button is-link" name="" href="#">Popularité</button></li>
+	    <li><button type="submit" class="button is-link" value="forUser" name="forUser" href="#">Ce qui m'interesse</button></li>
+	    {# <li class="is-active"><a href="#" aria-current="page">Breadcrumb</a></li> #}{# </form>
+	    <li>
+	    <form method="post">
+	    <div class="field has-addons">
+	    <div class="control">
+	      <input type="text" class="form-control" name="wordToSearch"></input>
+	    </div>
+	    <div class="control">
+	      <button type="submit" class="button is-link">Chercher</button>
+	      </div>
+	      </div>
+	      </li>
+	    </form> #}{# <li>
+	      
+	    </li>
+	    <li>
+	    <form method="post">
+	    <div class="field has-addons">
+	    <div class="control">
+	      <input type="text" class="form-control" name="userToSearch" Placeholder="Xx_DarkSasuke_xX"></input>
+	    </div>
+	    <div class="control">
+	      <button type="submit" class="button is-link">Chercher</button>
+	      </div>
+	      </div>
+	      </li>
+	    </form>
+	    <hr>
+	    <div style="background-color:blue; w">
+	    </div>
+	    {% for event in events %}
+	    <div>
+	        <p><a href="{{path('oneEvent', {id: event.id})}}"><strong>{{event.title}}</strong></a>
+	        <br>
+	        {{event.content| slice(1, 50)}} [...]
+	        <br>
+	        Débute le {{event.startAt|date("m/d/Y", "Europe/Paris")}}
+	        <br>
+	        Fini le {{event.endAt|date("m/d/Y", "Europe/Paris")}}
+	        <br>
+	        Ajouté le {{event.createdAt|date("m/d/Y", "Europe/Paris")}}
+	        <br>
+	        <a href="{{path('oneCategory', {name:event.category.name})}}"><h3>{{event.category.name}}</h3></a>
+	        <hr>
+	        <a type="button" href="{{path('editEvent', {id: event.id})}}">Modifier</a>
+	        <a type="button" href="{{path('removeEvent', {id: event.id})}}">Supprimmer</a>
+	        <a type="button" href="{{path('likeEvent', {id: event.id})}}">Liker</a>
+	        {{event.likes|length}} likes !  
+	        <a type="button" href="{{path('subscription', {id: event.id})}}">Participer</a>
+	        {{event.subscriptions|length}} participants !  {{event.progress}} %
+	        <hr>
+	        <hr>
+	        </p>
+	    </div> #}{# {% endfor %}
+	    <div class="navigation">
+	    {{ knp_pagination_render(events) }}
+	</div>
+	{% endblock %}#}
 {% block javascripts %}
-<script> 
+	<script>
 
 function cliquePourLiker(evenement) {
-        
-    evenement.preventDefault();
+
+evenement.preventDefault();
 
 
-    let url = this..href
+let url = this..href
 
-    let requeteAjax = new XMLHttpRequest();
+let requeteAjax = new XMLHttpRequest();
 
-        requeteAjax.open('GET', url)
-    
-        requeteAjax.onload = () => {
-            
-            let donnees = JSON.parse(requeteAjax.responseText)
+requeteAjax.open('GET', url)
 
-            let likes = donnees.likes
+requeteAjax.onload = () => {
 
-            this.querySelector(".likes").innerHTML = likes
-            console.log(likes)
+let donnees = JSON.parse(requeteAjax.responseText)
 
-            if (donnees.isLiked) {
-                
-                
-            } else {
-                
+let likes = donnees.likes
 
-            }
+this.querySelector(".likes").innerHTML = likes
+console.log(likes)
+
+if (donnees.isLiked) {} else {}
 
 
-        }
-        
-        requeteAjax.send()
+} requeteAjax.send()
 
 
-    }
-
+}
 
 
 document.addEventListener('DOMContentLoaded', () => {
-    
 
 
-        const likeButtons = document.querySelectorAll('.likeButton');
+const likeButtons = document.querySelectorAll('.likeButton');
 
-        likeButtons.forEach((bouton) => {
-                
-            bouton.addEventListener('click', cliquePourLiker)
-            })
+likeButtons.forEach((bouton) => {
 
-
+bouton.addEventListener('click', cliquePourLiker)
+})
 
 
-} )
-</script> 
-{% endblock %}
+})</script>{% endblock %}

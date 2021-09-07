@@ -266,11 +266,24 @@
 		<!-- Ajout d'un commentaire -->
 
 		<div class="flex-shrink-0 mr-3 mt-12 mb-12 justify-items-center">
-			<form class=" antialiased mx-auto  w-full max-w-xl bg-white rounded-lg px-4 pt-2">
+		{{form_start(form, {
+			'attr':{
+				'class':'antialiased mx-auto  w-full max-w-xl bg-white rounded-lg px-4 pt-2'
+			}
+		})}}
+			{# <form class=" antialiased mx-auto  w-full max-w-xl bg-white rounded-lg px-4 pt-2"> #}
 				<div class="flex flex-wrap -mx-3 mb-6">
-
+					
 					<div class="w-full md:w-full px-3 mb-2 mt-2">
-						<textarea class="bg-gray-100 rounded border border-gray-400 leading-normal resize-none w-full h-20 py-2 px-3 font-medium placeholder-gray-700 focus:outline-none focus:bg-white" name="body" placeholder="Rédigez votre message" required></textarea>
+						
+							{{form_row(form.content, {
+								'attr':{
+									'class':'bg-gray-100 rounded border border-gray-400 leading-normal resize-none w-full h-20 py-2 px-3 font-medium placeholder-gray-700 focus:outline-none focus:bg-white',
+									'placeholder':'Rédigez votre message'
+								}
+							})}}
+						
+						{# <textarea class="bg-gray-100 rounded border border-gray-400 leading-normal resize-none w-full h-20 py-2 px-3 font-medium placeholder-gray-700 focus:outline-none focus:bg-white" name="body" placeholder="Rédigez votre message" required></textarea> #}
 					</div>
 
 					<div class="w-full md:w-full flex items-start md:w-full px-3">
@@ -279,7 +292,8 @@
 							<input type='submit' class="bg-white text-gray-700 font-medium py-1 px-4 border border-gray-400 rounded-lg tracking-wide mr-1 hover:bg-gray-100" value='Ajouter un commentaire'>
 						</div>
 					</div>
-				</form>
+					{{form_end(form)}}
+				{# </form> #}
 			</div>
 
 		</section>
@@ -291,7 +305,7 @@
 
 			<div class="container mx-auto">
 
-				<h3 class="mt-32  mb-4 text-center md:text-left font-semibold text-gray-900">Ces événements peuvent vous intéresser</h3>
+				<h3 class="mt-32  mb-4 text-center md:text-left font-semibold text-gray-900">Quelques évenements provenants de cette organisateur</h3>
 
 				<hr class="divider mb-16 ml-44 md:ml-0 w-32">
 

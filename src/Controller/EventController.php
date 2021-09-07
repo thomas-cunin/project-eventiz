@@ -115,6 +115,7 @@ class EventController extends AbstractController
             $comment->setCreatedAt(new \DateTime());
             $comment->setEvent($event);
             $comment->setUser($this->getUser());
+            dump($comment);
             $em->persist($comment);
             $em->flush();
         }
