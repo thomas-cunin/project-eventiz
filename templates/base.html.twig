@@ -62,12 +62,14 @@
             </div>
         </div>
     {% endblock %}
-
-    {% block body %}{% endblock %}
+    
+    <div>
+        {% block body %}{% endblock %}
+    </div>
 
     {# footer bloc #}
     {% block footer %}
-        <div class="foot">
+        <div class="">
             <!-- This is an example component -->
             <div class="bg-gray-900">
                 <footer class="flex flex-wrap items-center justify-between p-3 m-auto">
@@ -90,5 +92,6 @@
             </div>
         </div>
     {% endblock %}
+
     </body>
 </html>

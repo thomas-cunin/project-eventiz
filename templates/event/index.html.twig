@@ -2,99 +2,77 @@
 
 {% block title %}Accueil{% endblock %}
 {% block stylesheets %}
-<link rel="stylesheet" href="{{asset('assets/css/accueil.css')}}">
+  <link rel="stylesheet" href="{{asset('assets/css/accueil.css')}}">
 {% endblock %}
 {% block body %}
 
   {# body page accueil #}
   <div class="home w-full h-full px-3 flex  ">
+      {# left box #}
       <div class="left w-4/5 mr-3 relative" >
-        {% for event in events %}
-          {# CARD #}
-          <div class="carde w-full h-56   flex border-2 border-gray-200 rounded-lg shadow-sm  mb-3 bg-white" data-aos="fade-up">
-              {# card image #}
-              <div class="card-image h-full w-1/4 p-1 rounded mr-2">
-                  <img src="{{asset('assets/img/others/img2.jpg')}}" alt="" class="h-full w-full rounded">
-              </div>
-              {# card content #}
-              <div class="card-content h-full w-3/4 relative">
-                {# card header #}
-                <div class="card-header-content w-full flex justify-between pr-1 pt-1">
-                    <h2 class="text-2xl font-bold ">{{event.title}}</h2>
-                    {# <p class="pr-5"><strong>{{event.startAt | date('d/m/Y')}}</strong></p> #}
-                    <p class="pr-5 flex items-end">
-                        <svg
-                          class="h-5 w-5 fill-current
-                          dark:text-gray-300"
-                          viewBox="0 0 24 24">
-                          <path
-                            d="M19
-                            19H5V8h14m-3-7v2H8V1H6v2H5c-1.11
-                            0-2 .89-2 2v14a2 2 0 002 2h14a2 2
-                            0 002-2V5a2 2 0 00-2-2h-1V1m-1
-                            11h-5v5h5v-5z"></path>
-                        </svg>
-                        <span
-                          class="ml-2 text-sm text-gray-600
-                          dark:text-gray-300 capitalize">
-                          {{event.startAt | date('d/m/Y')}}
-                        </span>
-									</p>
+          {% for event in events %}
+            {# CARD #}
+            <div class="carde w-full h-56   flex border-2 border-gray-200 rounded-lg shadow-sm  mb-3 bg-white" data-aos="fade-up">
+                {# card image #}
+                <div class="card-image h-full w-1/4 p-1 rounded mr-2">
+                    <img src="{{asset('assets/img/others/img2.jpg')}}" alt="" class="h-full w-full rounded">
                 </div>
-                {# card text description #}
-                <div class="card-text-content mt-1">
-                  <h2 class="text-xl font-bold">Description</h2>
-                  <p class="px-2 text-left text-lg break-all text-gray-800">{{event.content}}</p>
-                </div>
-                {# card footer container #}
-                <div class="card-footer-content flex absolute bottom-1 w-full">
-                      <div class="w-1/3 flex items-center ">
-                            <strong class="mr-4"><i class="fas fa-map-marker-alt text-2xl"> </i> {{event.adress}} </strong>
-                            {# <strong class="mr-10 "><a href="#" class=""><i class="far fa-heart text-2xl hover:text-gray-700 pulse"></i></a> 300</strong> #}
-                            <strong class="heart mr-6 flex items-end ">
-                              <a href="" class="inline-block w-6 mr-1">
-                              <svg viewBox="-20 -28 550.00002 512" xmlns="http://www.w3.org/2000/svg"><path d="m471.382812 44.578125c-26.503906-28.746094-62.871093-44.578125-102.410156-44.578125-29.554687 0-56.621094 9.34375-80.449218 27.769531-12.023438 9.300781-22.917969 20.679688-32.523438 33.960938-9.601562-13.277344-20.5-24.660157-32.527344-33.960938-23.824218-18.425781-50.890625-27.769531-80.445312-27.769531-39.539063 0-75.910156 15.832031-102.414063 44.578125-26.1875 28.410156-40.613281 67.222656-40.613281 109.292969 0 43.300781 16.136719 82.9375 50.78125 124.742187 30.992188 37.394531 75.535156 75.355469 127.117188 119.3125 17.613281 15.011719 37.578124 32.027344 58.308593 50.152344 5.476563 4.796875 12.503907 7.4375 19.792969 7.4375 7.285156 0 14.316406-2.640625 19.785156-7.429687 20.730469-18.128907 40.707032-35.152344 58.328125-50.171876 51.574219-43.949218 96.117188-81.90625 127.109375-119.304687 34.644532-41.800781 50.777344-81.4375 50.777344-124.742187 0-42.066407-14.425781-80.878907-40.617188-109.289063zm0 0"/></svg>
-                              </a>
-                              <strong>{{event.capacity}}</strong>
-                            </strong>
-                            <strong><a href="#"><i class="fas fa-share-square text-2xl hover:text-gray-700"></i></a></strong>
+                {# card content #}
+                <div class="card-content h-full w-3/4 relative">
+                  {# card header #}
+                  <div class="card-header-content w-full flex justify-between pr-1 pt-1">
+                      <h2 class="text-2xl font-bold ">{{event.title}}</h2>
+                      {# <p class="pr-5"><strong>{{event.startAt | date('d/m/Y')}}</strong></p> #}
+                      <p class="pr-5 flex items-end">
+                          <svg
+                            class="h-5 w-5 fill-current
+                            dark:text-gray-300"
+                            viewBox="0 0 24 24">
+                            <path
+                              d="M19
+                              19H5V8h14m-3-7v2H8V1H6v2H5c-1.11
+                              0-2 .89-2 2v14a2 2 0 002 2h14a2 2
+                              0 002-2V5a2 2 0 00-2-2h-1V1m-1
+                              11h-5v5h5v-5z"></path>
+                          </svg>
+                          <span
+                            class="ml-2 text-sm text-gray-600
+                            dark:text-gray-300 capitalize">
+                            {{event.startAt | date('d/m/Y')}}
+                          </span>
+                    </p>
+                  </div>
+                  {# card text description #}
+                  <div class="card-text-content mt-1">
+                    <h2 class="text-xl font-bold">Description</h2>
+                    <p class="px-2 text-left text-lg break-all text-gray-800">{{event.content}}</p>
+                  </div>
+                  {# card footer container #}
+                  <div class="card-footer-content flex absolute bottom-1 w-full">
+                        <div class="w-1/3 flex items-center ">
+                              <strong class="mr-4"><i class="fas fa-map-marker-alt text-2xl"> </i> {{event.adress}} </strong>
+                              {# <strong class="mr-10 "><a href="#" class=""><i class="far fa-heart text-2xl hover:text-gray-700 pulse"></i></a> 300</strong> #}
+                              <strong class="heart mr-6 flex items-end ">
+                                <a href="" class="inline-block w-6 mr-1">
+                                <svg viewBox="-20 -28 550.00002 512" xmlns="http://www.w3.org/2000/svg"><path d="m471.382812 44.578125c-26.503906-28.746094-62.871093-44.578125-102.410156-44.578125-29.554687 0-56.621094 9.34375-80.449218 27.769531-12.023438 9.300781-22.917969 20.679688-32.523438 33.960938-9.601562-13.277344-20.5-24.660157-32.527344-33.960938-23.824218-18.425781-50.890625-27.769531-80.445312-27.769531-39.539063 0-75.910156 15.832031-102.414063 44.578125-26.1875 28.410156-40.613281 67.222656-40.613281 109.292969 0 43.300781 16.136719 82.9375 50.78125 124.742187 30.992188 37.394531 75.535156 75.355469 127.117188 119.3125 17.613281 15.011719 37.578124 32.027344 58.308593 50.152344 5.476563 4.796875 12.503907 7.4375 19.792969 7.4375 7.285156 0 14.316406-2.640625 19.785156-7.429687 20.730469-18.128907 40.707032-35.152344 58.328125-50.171876 51.574219-43.949218 96.117188-81.90625 127.109375-119.304687 34.644532-41.800781 50.777344-81.4375 50.777344-124.742187 0-42.066407-14.425781-80.878907-40.617188-109.289063zm0 0"/></svg>
+                                </a>
+                                <strong>{{event.capacity}}</strong>
+                              </strong>
+                              <strong><a href="#"><i class="fas fa-share-square text-2xl hover:text-gray-700"></i></a></strong>
+                        </div>
+                        <div class="pourcentage w-2/3 flex items-center pr-1">
+                            <i class="fas fa-users mr-2 text-2xl "></i>
+                            <div class="bar_progress flex-1 bg-gray-500 rounded mr-2">
+                                <div class="progress bg-green-300 rounded flex justify-center" style="width: 90%">
+                                    <strong>10%</strong>
+                                </div>
+                            </div>
+                            <a href="#" class="border-2 border-green-500 px-4 py-1 rounded-lg text-white  text-lg font-bold bg-green-500 hover:bg-green-600 tracking-wide pulse">Voir</a>
                       </div>
-                      <div class="pourcentage w-2/3 flex items-center pr-1">
-                          <i class="fas fa-users mr-2 text-2xl "></i>
-                          <div class="bar_progress flex-1 bg-gray-500 rounded mr-2">
-                              <div class="progress bg-green-300 rounded flex justify-center" style="width: 90%">
-                                  <strong>10%</strong>
-                              </div>
-                          </div>
-                          <a href="#" class="border-2 border-green-500 px-4 py-1 rounded-lg text-white  text-lg font-bold bg-green-500 hover:bg-green-600 tracking-wide pulse">Voir</a>
-                    </div>
+                  </div>
                 </div>
-              </div>
-          </div>
-        {% endfor %}
-
-        {# pagination #}
-        <ul class="flex absolute bottom-6 w-full justify-center">
-            <li class="mx-1 px-3 py-2 bg-gray-200 text-gray-500 rounded-lg">
-                <a class="flex items-center font-bold" href="#">
-                    <span class="mx-1">previous</span>
-                </a>
-            </li>
-            <li class="mx-1 px-3 py-2 bg-gray-200 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
-                <a class="font-bold" href="#">1</a>
-            </li>
-            <li class="mx-1 px-3 py-2 bg-gray-200 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
-                <a class="font-bold" href="#">2</a>
-            </li>
-            <li class="mx-1 px-3 py-2 bg-gray-200 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
-                <a class="font-bold" href="#">3</a>
-            </li>
-            <li class="mx-1 px-3 py-2 bg-gray-200 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
-                <a class="flex items-center font-bold" href="#">
-                    <span class="mx-1">Next</span>
-                </a>
-            </li>
-      </ul>
+            </div>
+          {% endfor %}
       </div>
 
       {# right box #}
@@ -147,10 +125,35 @@
             </div>
       </div>
   </div>
+  {# Pagination #}
+  <div class="w-3/5 my-4 relative">
+        <ul class="flex w-full justify-center">
+            <li class="mx-1 px-3 py-2 bg-gray-200 text-gray-500 rounded-lg">
+                <a class="flex items-center font-bold" href="#">
+                    <span class="mx-1">previous</span>
+                </a>
+            </li>
+            <li class="mx-1 px-3 py-2 bg-gray-200 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
+                <a class="font-bold" href="#">1</a>
+            </li>
+            <li class="mx-1 px-3 py-2 bg-gray-200 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
+                <a class="font-bold" href="#">2</a>
+            </li>
+            <li class="mx-1 px-3 py-2 bg-gray-200 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
+                <a class="font-bold" href="#">3</a>
+            </li>
+            <li class="mx-1 px-3 py-2 bg-gray-200 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
+                <a class="flex items-center font-bold" href="#">
+                    <span class="mx-1">Next</span>
+                </a>
+            </li>
+        </ul>
+  </div>
 
-<script>
-  AOS.init();
-</script>
+  <script>
+    AOS.init();
+  </script>
+
 {% endblock %}
 
 

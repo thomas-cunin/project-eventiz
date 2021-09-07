@@ -28,14 +28,14 @@ class EventController extends AbstractController
         $searchByCity = $request->get('searchByCity');
         $orderby = $request->get('orderBy');
         $query = $request->get('query');
-        $startAt = $request->get('date');
+        $startAt = $request->get('startAt');
         $category = $request->get('category');
 
         // $events = $eventRepository->findAllByContent($query);
         
 
         $events = $paginator->paginate(
-            $eventRepository->findAllByTitleAndCategoryAndDateAndCity($query, $category, $startAt, $searchByCity),
+            $eventRepository->findAllByTitleAndCategoryAndCity($query, $category, $searchByCity),
                     $request->query->getInt('page', 1), /*page number*/
                     5 /*limit per page*/
         );
