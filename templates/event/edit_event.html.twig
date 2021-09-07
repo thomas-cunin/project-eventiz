@@ -1,19 +1,121 @@
 {% extends 'base.html.twig' %}
-{% form_theme form 'bootstrap_5_layout.html.twig' %}
+{% form_theme form 'tailwind_2_layout.html.twig' %}
 
 {% block title %}Hello EventController!{% endblock %}
 
+{% block header %}
+    <div class="h-20 w-full bg-blue-400 relative mb-3">
+            {# image container #}
+            <div class="w-full h-full blur header-image">
+                <img src="{{asset('assets/img/others/img5.jpg')}}" alt="" class="h-full w-full object-cover ">
+            </div>
+
+            {# menu container #}
+            <div class="w-full h-auto px-5 py-4 flex justify-between absolute top-0 -inset-x-0 z-10 text-white">
+                <h2><a href="{{path('home')}}" class="text-4xl font-bold hover:text-gray-300">Eventiz</a></h2>
+                   
+                {% if app.user %}
+                    <ul class="flex h-full items-center ">
+                        <li class="mr-4"><a href="{{path('addEvent')}}"><strong>Ajouter un evenement</strong></a></li>
+                        <li class="mr-4 text-xl uppercase "><strong>{{app.user.displayName}}</strong></li>
+                        <li><a href="{{path("logout")}}" class="px-3 py-2 border-2 border-white hover:text-white hover:bg-green-500 rounded">
+                            <span class="material-icons-outlined text-white"><i class="fas fa-sign-out-alt text-xl"></i></span>
+                        </a></li>
+                    </ul>
+                {% else %}
+                    <ul class="flex h-full items-center ">
+                        <li><a href="{{path("login")}}" class="mr-3 hover:text-gray-300">Login</a></li>
+                        <li><a href="{{path('register')}}" class="px-4 py-2 border-2 border-green-500 hover:text-white hover:bg-green-500 rounded" >Sign up</a></li>
+                    </ul>
+                {% endif %}
+            </div>
+
+            {# Champ de recherche #}
+            {# <div class="absolute bottom-20 -inset-x-0 z-10 flex justify-center">
+                <form class="w-3/6 flex">
+                    <input type="text" Placeholder="Rechercher par Ville" class="border-2 border-green-500 rounded w-4/5 px-2 py-2 mr-4 focus:ring-2 focus:ring-green-600 focus:outline-none" name="searchByCity">
+                    <input type="submit" class="rounded w-1/5 px-3 py-2 bg-green-500 text-xl text-white hover:bg-green-600" value="Rechercher" >
+                </form>
+            </div> #}
+        </div>
+
+{% endblock %}
 {% block body %}
-    <div>
-        {{form_start(form)}}
-            {{form_row(form.title)}}
-            {{form_row(form.content)}}
-            {{form_row(form.startAt)}}
-            {{form_row(form.endAt)}}
-            {{form_row(form.capacity)}} (Ne mettez rien si il n'y a pas de limite à indiquer )
-            {{form_row(form.category)}}
-            <button type="submit" class="btn btn-success">Ajouter cet évenement</button>
-        {{form_end(form)}}
+    <div class="h-full flex justify-center items-center py-20">
+        <div class="bg-white md:py-8 md:px-12 px-6 py-4 w-3/5 lg:w-6/12 mt-4 rounded-lg border shadow ">
+                    <label class="block text-grey-darker text-xl font-bold mb-2 w-full text-center">Ajouter un evenement</label>
+                    <form method="post">
+                        {# titre #}
+                        <div class="mb-4">
+                            <label class="block text-grey-darker text-sm font-bold mb-2">Titre</label>
+                            <input class=" border rounded w-full py-2 px-3 text-grey-darker focus:ring-2 focus:ring-green-600 outline-none" type="text"
+                                name="titre" id="student_id" value="" placeholder="Titre">
+                        </div>
+
+                        {# contenu #}
+                        <div class="mb-4">
+                            <label class="block text-grey-darker text-sm font-bold mb-2">contenu</label>
+                            <textarea name="content" class=" border rounded w-full py-2 px-3 text-grey-darker focus:ring-2 focus:ring-green-600 outline-none">
+                            </textarea>
+                        </div>
+
+                        {# date #}
+                        <div class="flex flex-wrap">
+                            {# date de debut #}
+                            <div class="mb-4 md:mr-3 flex-1 box-border">
+                                <label class="block text-grey-darker text-sm font-bold mb-2">date de debut</label>
+                                <input class=" border rounded w-full py-2 px-3 text-grey-darker focus:ring-2 focus:ring-green-600 outline-none" type="datetime-local"
+                                    name="startAt" id="addmission_date" >
+                            </div>
+                            {# date de fin #}
+                            <div class="mb-4 flex-1">
+                                <label class="block text-grey-darker text-sm font-bold mb-2">date de fin</label>
+                                <input class=" border rounded w-full py-2 px-3 text-grey-darker focus:ring-2 focus:ring-green-600 outline-none" type="datetime-local"
+                                    name="endAt" id="addmission_date" >
+                            </div>
+                        </div>
+
+                        
+                        <div class="flex flex-wrap">
+                            {# capacite #}
+                            <div class="mb-4 md:mr-3 flex-1">
+                                <label class="block text-grey-darker text-sm font-bold mb-2">places</label>
+                                <input class=" border rounded w-full py-2 px-3 text-grey-darker focus:ring-2 focus:ring-green-600 outline-none" type="number"
+                                    name="capacity" id="addmission_date" >
+                            </div>
+                            {# categorie #}
+                            <div class="mb-4 flex-1">
+                                <label class="block text-grey-darker text-sm font-bold mb-2">Categories</label>
+                                <select class="block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded h-10 px-4 md:w-full focus:ring-2 focus:ring-green-600 outline-none" required="required" name="category" id="integration_city_id">
+                                    <option value="">Seleted location</option>
+                                    {% for category in categories %}
+                                        <option value="{{category.id}}">{{category.name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+
+                        <div>
+                            <button type="submit" class="w-full bg-green-500 px-4 py-3 rounded text-white font-semibold
+                                hover:bg-green-600 transition duration-200 each-in-out">
+                                Enregistrer
+                             </button>
+                        </div>
+
+
+                    
+                    </form>
+
+                {# {{form_start(form)}}
+                   
+                    {{form_row(form.content)}}
+                    {{form_row(form.startAt)}}
+                    {{form_row(form.endAt)}}
+                    {{form_row(form.capacity)}} (Ne mettez rien si il n'y a pas de limite à indiquer )
+                    {{form_row(form.category)}}
+                    <button type="submit" class="btn btn-success">Ajouter cet évenement</button>
+                {{form_end(form)}} #}
+        </div>
     </div>
 {% endblock %}
 {% block javascripts %}

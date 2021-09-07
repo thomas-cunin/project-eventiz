@@ -67,7 +67,7 @@
                                     <strong>10%</strong>
                                 </div>
                             </div>
-                            <a href="#" class="border-2 border-green-500 px-4 py-1 rounded-lg text-white  text-lg font-bold bg-green-500 hover:bg-green-600 tracking-wide pulse">Voir</a>
+                            <a href="{{path('oneEvent', {id:event.id})}}" class="border-2 border-green-500 px-4 py-1 rounded-lg text-white  text-lg font-bold bg-green-500 hover:bg-green-600 tracking-wide pulse">Voir</a>
                       </div>
                   </div>
                 </div>
@@ -107,11 +107,11 @@
                         </div>
 
                         {# date de debut #}
-                        <div class="mb-4">
+                        {# <div class="mb-4">
                             <label class="block text-grey-darker text-sm font-bold mb-2">date de debut</label>
                             <input class=" border rounded w-full py-2 px-3 text-grey-darker focus:ring-2 focus:ring-green-600 outline-none" type="datetime-local"
                                 name="startAt" id="addmission_date" >
-                        </div>
+                        </div> #}
                         {# button #}
                         <div class="mb-1 w-full text-center">
                             <button type="submit"
@@ -155,91 +155,3 @@
   </script>
 
 {% endblock %}
-
-
-
-
-{# <a href="{{path('register')}}"><h1>Inscription</h1></a>
-<a href="{{path('login')}}"><h1>Connexion</h1></a>
-<a href="{{path('logout')}}"><h1>Déconnexion</h1></a>
-<a href="{{path('addEvent')}}"><h1>Ajouter un évènement</h1></a>
-
-<hr>
-
-<form class="" method="post">
-<nav class="breadcrumb is-centered mt-2 d-flex justify-content-around" aria-label="breadcrumbs">
-  <ul>
-    <li><button type="submit" class="button is-link" value="asc" name="orderby" href="#">Date croissante</button></li>
-    <li><button type="submit" class="button is-link" value="desc" name="orderby" href="#">Date décroissante</button></li>
-    <li><button type="submit" class="button is-link" name="" href="#">Popularité</button></li>
-    <li><button type="submit" class="button is-link" value="forUser" name="forUser" href="#">Ce qui m'interesse</button></li>
-    {# <li class="is-active"><a href="#" aria-current="page">Breadcrumb</a></li> #}
-    {# </form>
-    <li>
-    <form method="post">
-    <div class="field has-addons">
-    <div class="control">
-      <input type="text" class="form-control" name="wordToSearch"></input>
-    </div>
-    <div class="control">
-      <button type="submit" class="button is-link">Chercher</button>
-      </div>
-      </div>
-      </li>
-    </form> #}
-    {# <li>
-      
-    </li>
-    <li>
-    <form method="post">
-    <div class="field has-addons">
-    <div class="control">
-      <input type="text" class="form-control" name="userToSearch" Placeholder="Xx_DarkSasuke_xX"></input>
-    </div>
-    <div class="control">
-      <button type="submit" class="button is-link">Chercher</button>
-      </div>
-      </div>
-      </li>
-    </form>
-    <hr>
-    <div style="background-color:blue; w">
-    </div>
-    {% for event in events %}
-    <div>
-        <p><a href="{{path('oneEvent', {id: event.id})}}"><strong>{{event.title}}</strong></a>
-        <br>
-        {{event.content| slice(1, 50)}} [...]
-        <br>
-        Débute le {{event.startAt|date("m/d/Y", "Europe/Paris")}}
-        <br>
-        Fini le {{event.endAt|date("m/d/Y", "Europe/Paris")}}
-        <br>
-        Ajouté le {{event.createdAt|date("m/d/Y", "Europe/Paris")}}
-        <br>
-        <a href="{{path('oneCategory', {name:event.category.name})}}"><h3>{{event.category.name}}</h3></a>
-        <hr>
-        <a type="button" href="{{path('editEvent', {id: event.id})}}">Modifier</a>
-        <a type="button" href="{{path('removeEvent', {id: event.id})}}">Supprimmer</a>
-        <a type="button" href="{{path('likeEvent', {id: event.id})}}">Liker</a>
-        {{event.likes|length}} likes !  
-        <a type="button" href="{{path('subscription', {id: event.id})}}">Participer</a>
-        {{event.subscriptions|length}} participants !  {{event.progress}} %
-        <hr>
-        <hr>
-        </p>
-    </div> #}
-    {# {% endfor %}
-    <div class="navigation">
-    {{ knp_pagination_render(events) }}
-</div>
-{% endblock %}
-{% block javascripts %}
-<script> #}
-  
-  {# navigator.geolocation.getCurrentPosition((position) => {
-    let positionButton = document.getElementById('positionButton');
-  positionButton.value = position.coords.latitude + ',' + position.coords.longitude;
-  console.log(position);
-});
-</script> #}

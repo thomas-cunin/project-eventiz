@@ -120,7 +120,7 @@ class EventController extends AbstractController
      * @Route("/event/edit/{id}", name="editEvent", priority=1)
      * @Route("/event/add", name="addEvent", priority=1)
      */
-    public function edit(Event $event = null, EntityManagerInterface $em, Request $request, LocationService $loc): Response
+    public function edit(Event $event = null, EntityManagerInterface $em, Request $request, LocationService $loc, CategoryRepository $categoryRepository): Response
     {
         if ($event && $event->getOrganizer() !== $this->getUser() && !in_array('ROLE_ADMIN',$this->getUser()->getRoles())) {
             throw $this->createAccessDeniedException();
@@ -148,7 +148,8 @@ class EventController extends AbstractController
         }
         return $this->render('event/edit_event.html.twig',
         [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'categories' => $categoryRepository->findAll(),
         ]);
     }
 
