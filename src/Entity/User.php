@@ -83,6 +83,11 @@ class User implements UserInterface
      */
     private $subscriptions;
 
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     */
+    private $roles = [];
+
     public function __construct()
     {
         $this->likedCategorys = new ArrayCollection();
@@ -112,7 +117,7 @@ class User implements UserInterface
 
     public function getRoles(){
         
-        return ['ROLE_ORGUSER'];
+        return $this->roles;
     }
 
     public function getSalt(){}
@@ -353,6 +358,13 @@ class User implements UserInterface
                 $subscription->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function setRoles(?array $roles): self
+    {
+        $this->roles = $roles;
 
         return $this;
     }

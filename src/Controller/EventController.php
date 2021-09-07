@@ -122,6 +122,9 @@ class EventController extends AbstractController
      */
     public function edit(Event $event = null, EntityManagerInterface $em, Request $request, LocationService $loc): Response
     {
+        if ($event && $event->getOrganizer() !== $this->getUser() && !in_array('ROLE_ADMIN',$this->getUser()->getRoles())) {
+            throw $this->createAccessDeniedException();
+        }
        
         $editMode = false;
         if (!$event)
