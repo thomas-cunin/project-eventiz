@@ -28,7 +28,7 @@ class EventController extends AbstractController
         $searchByCity = $request->get('searchByCity');
         $orderby = $request->get('orderBy');
         $query = $request->get('query');
-        $startAt = $request->get('date');
+        $startAt = $request->get('startAt');
         $category = $request->get('category');
 
         // $events = $eventRepository->findAllByContent($query);

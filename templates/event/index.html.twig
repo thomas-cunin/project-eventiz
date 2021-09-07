@@ -2,7 +2,7 @@
 
 {% block title %}Accueil{% endblock %}
 {% block stylesheets %}
-<link rel="stylesheet" href="{{asset('assets/css/accueil.css')}}">
+  <link rel="stylesheet" href="{{asset('assets/css/accueil.css')}}">
 {% endblock %}
 {% block headerCenter %}
 <div class="absolute bottom-20 -inset-x-0 z-10 flex justify-center">
@@ -21,38 +21,14 @@
 
   {# body page accueil #}
   <div class="home w-full h-full px-3 flex  ">
+      {# left box #}
       <div class="left w-4/5 mr-3 relative" >
-        {% for event in events %}
-          {# CARD #}
-          <div class="carde w-full h-56   flex border-2 border-gray-200 rounded-lg shadow-sm  mb-3 bg-white" data-aos="fade-up">
-              {# card image #}
-              <div class="card-image h-full w-1/4 p-1 rounded mr-2">
-                  <img src="{{asset('assets/img/others/img2.jpg')}}" alt="" class="h-full w-full rounded">
-              </div>
-              {# card content #}
-              <div class="card-content h-full w-3/4 relative">
-                {# card header #}
-                <div class="card-header-content w-full flex justify-between pr-1 pt-1">
-                    <h2 class="text-2xl font-bold ">{{event.title}}</h2>
-                    {# <p class="pr-5"><strong>{{event.startAt | date('d/m/Y')}}</strong></p> #}
-                    <p class="pr-5 flex items-end">
-                        <svg
-                          class="h-5 w-5 fill-current
-                          dark:text-gray-300"
-                          viewBox="0 0 24 24">
-                          <path
-                            d="M19
-                            19H5V8h14m-3-7v2H8V1H6v2H5c-1.11
-                            0-2 .89-2 2v14a2 2 0 002 2h14a2 2
-                            0 002-2V5a2 2 0 00-2-2h-1V1m-1
-                            11h-5v5h5v-5z"></path>
-                        </svg>
-                        <span
-                          class="ml-2 text-sm text-gray-600
-                          dark:text-gray-300 capitalize">
-                          {{event.startAt | date('d/m/Y')}}
-                        </span>
-									</p>
+          {% for event in events %}
+            {# CARD #}
+            <div class="carde w-full h-56   flex border-2 border-gray-200 rounded-lg shadow-sm  mb-3 bg-white" data-aos="fade-up">
+                {# card image #}
+                <div class="card-image h-full w-1/4 p-1 rounded mr-2">
+                    <img src="{{asset('assets/img/others/img2.jpg')}}" alt="" class="h-full w-full rounded">
                 </div>
                 {# card text description #}
                 <div class="card-text-content mt-1">
@@ -168,10 +144,35 @@
             </div>
       </div>
   </div>
+  {# Pagination #}
+  <div class="w-3/5 my-4 relative">
+        <ul class="flex w-full justify-center">
+            <li class="mx-1 px-3 py-2 bg-gray-200 text-gray-500 rounded-lg">
+                <a class="flex items-center font-bold" href="#">
+                    <span class="mx-1">previous</span>
+                </a>
+            </li>
+            <li class="mx-1 px-3 py-2 bg-gray-200 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
+                <a class="font-bold" href="#">1</a>
+            </li>
+            <li class="mx-1 px-3 py-2 bg-gray-200 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
+                <a class="font-bold" href="#">2</a>
+            </li>
+            <li class="mx-1 px-3 py-2 bg-gray-200 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
+                <a class="font-bold" href="#">3</a>
+            </li>
+            <li class="mx-1 px-3 py-2 bg-gray-200 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
+                <a class="flex items-center font-bold" href="#">
+                    <span class="mx-1">Next</span>
+                </a>
+            </li>
+        </ul>
+  </div>
 
-<script>
-  AOS.init();
-</script>
+  <script>
+    AOS.init();
+  </script>
+
 {% endblock %}
 
 

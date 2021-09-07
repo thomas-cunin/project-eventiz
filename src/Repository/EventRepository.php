@@ -168,11 +168,11 @@ class EventRepository extends ServiceEntityRepository
        }
 
        
-    //    if($date != null){
-    //        $date = (new \DateTime($date))->format('Y-m-d H:i:00');
+    //    if($startAt != null){
+    //        $date = (new \DateTime($startAt))->format('Y-m-d H:i:s');
     //        dump($date);
     //     $queryBulder 
-    //     ->andWhere('e.createdAt >= :createdAt');
+    //     ->andWhere('e.startAt >= :createdAt');
     //     $parameters['createdAt'] = $startAt;
     //    }
 
