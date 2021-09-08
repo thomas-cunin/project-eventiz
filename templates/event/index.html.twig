@@ -42,7 +42,7 @@
 						class="card-content h-full w-3/4 relative">
 						{# card header #}
 						<div class="card-header-content w-full flex justify-between pr-1 pt-1">
-							<h2 class="text-2xl font-bold ">{{event.title}}</h2>
+							<h2 class="text-2xl font-bold ">{{event.title|slice(0,45)}}...</h2>
 							{# <p class="pr-5"><strong>{{event.startAt | date('d/m/Y')}}</strong></p> #}
 							<p class="pr-5 flex items-end">
 								<svg class="h-5 w-5 fill-current
@@ -62,7 +62,7 @@
 						{# card text description #}
 						<div class="card-text-content mt-1">
 							<h2 class="text-lg font-bold">{{event.category.name}}</h2>
-							<p class="px-2 text-left text-lg break-all text-gray-800">{{event.content|slice(0, 250)}}</p>
+							<p class="px-2 text-left text-lg break-all text-gray-800">{{event.content|slice(0, 250)}} [...]</p>
 						</div>
 						{# card footer container #}
 						<div class="card-footer-content flex absolute bottom-1 w-full">
