@@ -1,7 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Accueil
-{% endblock %}
+{% block title %}Accueil{% endblock %}
 {% block stylesheets %}
 	<link rel="stylesheet" href="{{asset('assets/css/accueil.css')}}">
 {% endblock %}
@@ -19,10 +18,8 @@
 {% endblock %}
 {% block body %}
 
-
 	{# body page accueil #}
-	<div
-		class="home w-full h-full px-3 flex  ">
+	<div class="home w-full h-full px-3 flex ">
 		{# left box #}
 		<div class="left w-4/5 mr-3 relative">
 			{% for event in events %}
@@ -104,220 +101,91 @@
 				</div>
 			</div>
 		{% endfor %}
-		<div class=" mt-4">
+		  <div class=" mt-4">
 			{{ knp_pagination_render(events) }}
 		</div>
-		{# pagination #}
-		{# <ul class="flex absolute bottom-6 w-full justify-center">
-		            <li class="mx-1 px-3 py-2 bg-gray-200 text-gray-500 rounded-lg">
-		                <a class="flex items-center font-bold" href="#">
-		                    <span class="mx-1">previous</span>
-		                </a>
-		            </li>
-		            <li class="mx-1 px-3 py-2 bg-gray-200 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
-		                <a class="font-bold" href="#">1</a>
-		            </li>
-		            <li class="mx-1 px-3 py-2 bg-gray-200 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
-		                <a class="font-bold" href="#">2</a>
-		            </li>
-		            <li class="mx-1 px-3 py-2 bg-gray-200 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
-		                <a class="font-bold" href="#">3</a>
-		            </li>
-		            <li class="mx-1 px-3 py-2 bg-gray-200 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
-		                <a class="flex items-center font-bold" href="#">
-		                    <span class="mx-1">Next</span>
-		                </a>
-		            </li>
-		      </ul>#}
-	</div>
+    </div>
 
-	{# right box #}
-	<div class="right w-2/5  ">
-		<div class="w-full mx-auto bg-white rounded-lg border-2 border-gray-200  shadow-sm dark:bg-gray-800">
+      {# right box #}
+      <div class="right w-2/5  ">
+           <div class="w-full mx-auto bg-white rounded-lg border-2 border-gray-200  shadow-sm dark:bg-gray-800">
 
-			<div class="mx-16 py-4 px-8 text-black text-xl font-bold border-b border-grey-500">Recherche Avancée
-			</div>
+                <div class="mx-16 py-4 px-8 text-black text-xl font-bold border-b border-grey-500">Recherche Avancée
+                </div>
 
-			<form name="student_application" id="student_application">
-				<div class="py-3 px-8">
-					{% if searchByCity is defined %}
-						<input type="hidden" name="searchByCity" value="{{searchByCity}}">
-					{% endif %}
-					{# titre #}
-					<div class="mb-4">
-						<label class="block text-grey-darker text-sm font-bold mb-2">Rechercher par mot clé:</label>
-						<input class=" border rounded w-full py-2 px-3 text-grey-darker focus:ring-2 focus:ring-green-600 outline-none" type="text" name="query" id="student_id" value="" placeholder="Rechercher par mot clé">
-					</div>
+                <form name="student_application" id="student_application" >
+                    <div class="py-3 px-8">
+                      {% if searchByCity is defined %}
+                        <input type="hidden" name="searchByCity" value="{{searchByCity}}">
+                      {% endif %}
+                        {# titre #}
+                        <div class="mb-4">
+                            <label class="block text-grey-darker text-sm font-bold mb-2">Rechercher par mot clé:</label>
+                            <input class=" border rounded w-full py-2 px-3 text-grey-darker focus:ring-2 focus:ring-green-600 outline-none" type="text"
+                                name="query" id="student_id" value="" placeholder="Rechercher par mot clé">
+                        </div>
 
-					{# categorie #}
-					<div class="w-full  mb-3">
-						<label class="font-semibold text-gray-600 py-2">Categories</label>
-						<select class="block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded h-10 px-4 md:w-full focus:ring-2 focus:ring-green-600 outline-none" name="category" id="integration_city_id">
-							<option value="">Choisir une catégorie</option>
-							{% for category in categories %}
-								<option value="{{category.id}}">{{category.name}}</option>
-							{% endfor %}
-						</select>
-						{# <p class="text-sm text-red-500 hidden mt-3" id="error">Please fill out this field.</p> #}
-					</div>
+                        {# categorie #}
+                        <div class="w-full  mb-3">
+                            <label class="font-semibold text-gray-600 py-2">Categories</label>
+                            <select class="block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded h-10 px-4 md:w-full focus:ring-2 focus:ring-green-600 outline-none"  name="category" id="integration_city_id">
+                                <option value="">Choisir une catégorie</option>
+                                {% for category in categories %}
+                                    <option value="{{category.id}}">{{category.name}}</option>
+                                {% endfor %}
+                              </select>
+                            {# <p class="text-sm text-red-500 hidden mt-3" id="error">Please fill out this field.</p> #}
+                        </div>
 
-					{# date de debut #}
-					{# <div class="mb-4">
-					                            <label class="block text-grey-darker text-sm font-bold mb-2">date de debut</label>
-					                            <input class=" border rounded w-full py-2 px-3 text-grey-darker focus:ring-2 focus:ring-green-600 outline-none" type="datetime-local"
-					                                name="startAt" id="addmission_date" >
-					                        </div> #}
-					{# button #}
-						<div class="mb-1 w-full text-center"> <button type="submit" class=" mx-16 rounded py-2 px-20 border-2 border-green-500 font-semibold text-xl text-gray-600 hover:text-white hover:bg-green-500">
-							Rechercher
-						</button>
-					</div>
-				</div>
-			</form>
+                        {# date de debut #}
+                        {# <div class="mb-4">
+                            <label class="block text-grey-darker text-sm font-bold mb-2">date de debut</label>
+                            <input class=" border rounded w-full py-2 px-3 text-grey-darker focus:ring-2 focus:ring-green-600 outline-none" type="datetime-local"
+                                name="startAt" id="addmission_date" >
+                        </div> #}
+                        {# button #}
+                        <div class="mb-1 w-full text-center">
+                            <button type="submit"
+                                class=" mx-16 rounded py-2 px-20 border-2 border-green-500 font-semibold text-xl text-gray-600 hover:text-white hover:bg-green-500">
+                                Rechercher
+                            </button>
+                        </div>
+                    </div>
+                </form>
 
-		</div>
-	</div>
-</div>
-{# Pagination #}
-{# <div class="w-3/5 my-4 relative">
-	<ul class="flex w-full justify-center">
-		<li class="mx-1 px-3 py-2 bg-gray-200 text-gray-500 rounded-lg">
-			<a class="flex items-center font-bold" href="#">
-				<span class="mx-1">previous</span>
-			</a>
-		</li>
-		<li class="mx-1 px-3 py-2 bg-gray-200 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
-			<a class="font-bold" href="#">1</a>
-		</li>
-		<li class="mx-1 px-3 py-2 bg-gray-200 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
-			<a class="font-bold" href="#">2</a>
-		</li>
-		<li class="mx-1 px-3 py-2 bg-gray-200 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
-			<a class="font-bold" href="#">3</a>
-		</li>
-		<li class="mx-1 px-3 py-2 bg-gray-200 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
-			<a class="flex items-center font-bold" href="#">
-				<span class="mx-1">Next</span>
-			</a>
-		</li>
-	</ul>
-</div> #}
+            </div>
+      </div>
+  </div>
+  {# Pagination #}
+        {# <div class=" mt-4">
+            {{ knp_pagination_render(events) }}
+        </div> #}
+  {# <div class="w-3/5 my-4 relative">
+        <ul class="flex w-full justify-center">
+            <li class="mx-1 px-3 py-2 bg-gray-200 text-gray-500 rounded-lg">
+                <a class="flex items-center font-bold" href="#">
+                    <span class="mx-1">previous</span>
+                </a>
+            </li>
+            <li class="mx-1 px-3 py-2 bg-gray-200 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
+                <a class="font-bold" href="#">1</a>
+            </li>
+            <li class="mx-1 px-3 py-2 bg-gray-200 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
+                <a class="font-bold" href="#">2</a>
+            </li>
+            <li class="mx-1 px-3 py-2 bg-gray-200 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
+                <a class="font-bold" href="#">3</a>
+            </li>
+            <li class="mx-1 px-3 py-2 bg-gray-200 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
+                <a class="flex items-center font-bold" href="#">
+                    <span class="mx-1">Next</span>
+                </a>
+            </li>
+        </ul>
+  </div> #}
 
-<script>
-	AOS.init();
-</script>{% endblock %}{# <a href="{{path('register')}}"><h1>Inscription</h1></a>
-	<a href="{{path('login')}}"><h1>Connexion</h1></a>
-	<a href="{{path('logout')}}"><h1>Déconnexion</h1></a>
-	<a href="{{path('addEvent')}}"><h1>Ajouter un évènement</h1></a>
-	
-	<hr>
-	
-	<form class="" method="post">
-	<nav class="breadcrumb is-centered mt-2 d-flex justify-content-around" aria-label="breadcrumbs">
-	  <ul>
-	    <li><button type="submit" class="button is-link" value="asc" name="orderby" href="#">Date croissante</button></li>
-	    <li><button type="submit" class="button is-link" value="desc" name="orderby" href="#">Date décroissante</button></li>
-	    <li><button type="submit" class="button is-link" name="" href="#">Popularité</button></li>
-	    <li><button type="submit" class="button is-link" value="forUser" name="forUser" href="#">Ce qui m'interesse</button></li>
-	    {# <li class="is-active"><a href="#" aria-current="page">Breadcrumb</a></li> #}{# </form>
-	    <li>
-	    <form method="post">
-	    <div class="field has-addons">
-	    <div class="control">
-	      <input type="text" class="form-control" name="wordToSearch"></input>
-	    </div>
-	    <div class="control">
-	      <button type="submit" class="button is-link">Chercher</button>
-	      </div>
-	      </div>
-	      </li>
-	    </form> #}{# <li>
-	      
-	    </li>
-	    <li>
-	    <form method="post">
-	    <div class="field has-addons">
-	    <div class="control">
-	      <input type="text" class="form-control" name="userToSearch" Placeholder="Xx_DarkSasuke_xX"></input>
-	    </div>
-	    <div class="control">
-	      <button type="submit" class="button is-link">Chercher</button>
-	      </div>
-	      </div>
-	      </li>
-	    </form>
-	    <hr>
-	    <div style="background-color:blue; w">
-	    </div>
-	    {% for event in events %}
-	    <div>
-	        <p><a href="{{path('oneEvent', {id: event.id})}}"><strong>{{event.title}}</strong></a>
-	        <br>
-	        {{event.content| slice(1, 50)}} [...]
-	        <br>
-	        Débute le {{event.startAt|date("m/d/Y", "Europe/Paris")}}
-	        <br>
-	        Fini le {{event.endAt|date("m/d/Y", "Europe/Paris")}}
-	        <br>
-	        Ajouté le {{event.createdAt|date("m/d/Y", "Europe/Paris")}}
-	        <br>
-	        <a href="{{path('oneCategory', {name:event.category.name})}}"><h3>{{event.category.name}}</h3></a>
-	        <hr>
-	        <a type="button" href="{{path('editEvent', {id: event.id})}}">Modifier</a>
-	        <a type="button" href="{{path('removeEvent', {id: event.id})}}">Supprimmer</a>
-	        <a type="button" href="{{path('likeEvent', {id: event.id})}}">Liker</a>
-	        {{event.likes|length}} likes !  
-	        <a type="button" href="{{path('subscription', {id: event.id})}}">Participer</a>
-	        {{event.subscriptions|length}} participants !  {{event.progress}} %
-	        <hr>
-	        <hr>
-	        </p>
-	    </div> #}{# {% endfor %}
-	    <div class="navigation">
-	    {{ knp_pagination_render(events) }}
-	</div>
-	{% endblock %}#}
-{% block javascripts %}
-	<script>
+  <script>
+    AOS.init();
+  </script>
 
-function cliquePourLiker(evenement) {
-
-evenement.preventDefault();
-
-
-let url = this..href
-
-let requeteAjax = new XMLHttpRequest();
-
-requeteAjax.open('GET', url)
-
-requeteAjax.onload = () => {
-
-let donnees = JSON.parse(requeteAjax.responseText)
-
-let likes = donnees.likes
-
-this.querySelector(".likes").innerHTML = likes
-console.log(likes)
-
-if (donnees.isLiked) {} else {}
-
-
-} requeteAjax.send()
-
-
-}
-
-
-document.addEventListener('DOMContentLoaded', () => {
-
-
-const likeButtons = document.querySelectorAll('.likeButton');
-
-likeButtons.forEach((bouton) => {
-
-bouton.addEventListener('click', cliquePourLiker)
-})
-
-
-})</script>{% endblock %}
+{% endblock %}

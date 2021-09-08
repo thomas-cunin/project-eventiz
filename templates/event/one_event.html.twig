@@ -236,9 +236,11 @@
 				<div class="space-y-4">
 					{% for comment in event.comments %}
 						<div class="flex">
-							<div class="flex-shrink-0 mr-3">
-								<img class="mt-2 rounded-full w-8 h-8 sm:w-10 sm:h-10" src="{{asset('upload/images/' ~ comment.user.image.path)}}" alt="">
-							</div>
+							{# <div class="flex-shrink-0 mr-3"> #}
+								{# {% if comment.user.image.path is defined %} #}
+									{# <img class="mt-2 rounded-full w-8 h-8 sm:w-10 sm:h-10" src="{{asset('upload/images/' ~ comment.user.image.path)}}" alt=""> #}
+								{# {% endif %} #}
+							{# </div> #}
 							<div class="flex-1 border rounded-lg px-4 py-2 sm:px-6 sm:py-4 leading-relaxed">
 
 								<strong>{{comment.user.username}}</strong>
@@ -292,10 +294,9 @@
 						{# <textarea class="bg-gray-100 rounded border border-gray-400 leading-normal resize-none w-full h-20 py-2 px-3 font-medium placeholder-gray-700 focus:outline-none focus:bg-white" name="body" placeholder="Rédigez votre message" required></textarea> #}
 					</div>
 
-					<div class="w-full md:w-full flex items-start md:w-full px-3">
 						<div class="flex items-start w-1/2 text-gray-700 px-2 mr-auto"></div>
-						<div class="-mr-1">
-							<input type='submit' class="bg-white text-gray-700 font-medium py-1 px-4 border border-gray-400 rounded-lg tracking-wide mr-1 hover:bg-gray-100" value='Ajouter un commentaire'>
+						<div class="mr-1 mb-3">
+							<input type='submit' class="bg-green-500 text-white font-medium py-1 px-4 border border-gray-400 rounded-lg tracking-wide mr-1 hover:bg-green-600 cursor-pointer" value='Ajouter un commentaire'>
 						</div>
 					</div>
 					{{form_end(form)}}

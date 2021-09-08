@@ -1,54 +1,133 @@
  {% extends 'base.html.twig' %}
+{% form_theme form 'tailwind_2_layout.html.twig' %}
 
 {% block title %}Sign Up{% endblock %}
 
-{% block body %}
-<div class="min-h-screen bg-no-repeat bg-cover bg-center"
-	style="background-image: url('https://images.unsplash.com/photo-1486520299386-6d106b22014b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80')">
-	<div class="flex justify-end">
-		<div class="bg-white min-h-screen w-1/2 flex justify-center items-center">
-			<div>
-
-				<form>
-					<div>
-						<span class="text-sm text-gray-900">Welcome back</span>
-						<h1 class="text-2xl font-bold">Login to your account</h1>
-					</div>
-					<div class="mt-5">
-						<label class="block text-md mb-2" for="password">Password</label>
-						<input class="px-4 w-full border-2 py-2 rounded-md text-sm outline-none" type="password" name="password" placeholder="password">
-                    </div>
-					<div class="my-3">
-						<label class="block text-md mb-2" for="email">Email</label>
-						<input class="px-4 w-full border-2 py-2 rounded-md text-sm outline-none" type="email" name="password" placeholder="email">
-                    </div>
-						<div class="flex justify-between">
-							<div>
-								<input class="cursor-pointer"  type="radio" name="rememberme">
-								<span class="text-sm">Remember Me</span>
-							</div>
-							<span class="text-sm text-blue-700 hover:underline cursor-pointer">Forgot password?</span>
-						</div>
-						<div class="">
-							<button class="mt-4 mb-3 w-full bg-green-500 hover:bg-green-400 text-white py-2 rounded-md transition duration-100">Login now</button>
-							<div class="flex  space-x-2 justify-center items-end bg-gray-700 hover:bg-gray-600 text-white py-2 rounded-md transition duration-100">
-                                    <img class=" h-5 cursor-pointer" src="https://i.imgur.com/arC60SB.png" alt="">
-									<button >Or sign-in with google</button>
-								</div>
-							</div>
-				</form>
-				<p class="mt-8"> Dont have an account? <span class="cursor-pointer text-sm text-blue-600"> Join free today</span></p>
-			</div>
-		</div>
-	</div>
-</div>
-</div>
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button type="submit" class="">S'inscrire</button> 
-    {{ form_end(form) }}
+{% block stylesheets %}
+  <link rel="stylesheet" href="{{asset('assets/css/register-login.css')}}">
 {% endblock %}
 
+{% block header %}{% endblock %}
+{% block body %}
+{# <div class="min-h-screen ">
+	<div class="flex"> #}
+        {# <div class="leftBlock  bg-no-repeat bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1486520299386-6d106b22014b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80')">
+        </div> #}
+        {# n-------------------------------------------------------------------------------- #}
+
+
+<div class="register h-full">
+            
+            <h2 class="absolute text-white top-5 ml-6 z-10"><a href="{{path('home')}}" class="text-4xl font-bold hover:text-gray-300">Eventiz</a></h2>
+            {# <div class="rightBlock bg-white  flex justify-center items-center"> #}
+            <div class="bg-green-100 register h-full flex justify-center items-center">
+                <div class="card-form bg-white md:py-8 md:px-12 px-6 py-4 w-3/5 lg:w-4/12 mt-32 rounded-lg border shadow ">
+                    {# formulaire #}
+                    {{form_start(form)}}
+                                        {# username #}
+                                        <div class="md:mb-3 mb-0 md:flex flex-wrap">
+                                                <div class="md:flex-1 md:mr-3">
+                                                    {{form_row(form.username, {
+                                                        'label': "Pseudonyme",
+                                                        label_class: "block md:mb-2 text-sm font-bold text-gray-700" ,
+                                                        widget_class: "w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline ",
+                                                        
+                                                    })}}
+                                                </div>
+                                                <div class="md:flex-1">
+                                                    {{form_row(form.displayName, {
+                                                        'label': "Pseudo d'affichage",
+                                                        label_class: "block md:mb-2 text-sm font-bold text-gray-700" ,
+                                                        widget_class: "w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline",
+                                                    })}}
+                                                </div>			
+                                        </div>
+
+                                        {# email #}
+                                        <div class="md:mb-3">
+                                                {{form_row(form.email, {
+                                                    'label': "email",
+                                                    label_class: "block mb-2 text-sm font-bold text-gray-700" ,
+                                                    widget_class: "w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline",
+                                                })}}
+                                        </div>
+
+                                        {# mot de passe #}
+                                        <div class="md:mb-2 md:flex">
+                                            
+                                                <div class="md:flex-1 md:mr-3">
+                                                    {{form_row(form.password, {
+                                                        'label': "Mot de passe",
+                                                        label_class: "block mb-2 text-sm font-bold text-gray-700" ,
+                                                        widget_class: "w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline",
+                                                        
+                                                    })}}
+                                                </div>
+                                                        
+                                                <div class="md:flex-1">
+                                                    {{form_row(form.passwordConfirm, {
+                                                        'label': "Confirmer",
+                                                        label_class: "block mb-2 text-sm font-bold text-gray-700" ,
+                                                        widget_class: "w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline",
+                                                        
+                                                    })}}
+                                                </div>
+                                        </div>
+
+                                        {# image a telecharger #}
+                                        <div class="md:mb-3">
+                                            <div class="grid grid-cols-1 ">
+                                                <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold mb-1">Telecharger une Image</label>
+                                                <div class='flex items-center justify-center w-full'>
+                                                    <label class='flex flex-col border-4 border-dashed w-full h-32 hover:bg-gray-100 hover:border-purple-300 group'>
+                                                        <div class='flex flex-col items-center justify-center pt-7'>
+                                                            <svg class="w-10 h-10 text-purple-400 group-hover:text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                                            <p class='lowercase text-sm text-gray-400 group-hover:text-purple-600 pt-1 tracking-wider'>Ajouter une image</p>
+                                                        </div>
+                                                        {{form_row(form.image, {
+                                                            label_class: "block mb-2 text-sm font-bold text-gray-700",
+                                                            widget_class: "hidden"
+                                                                        
+                                                        })}}
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {# checkbox #}
+                                        <div class="md:mb-3">
+                                            <label class="flex items-center ">
+                                                {{form_row(form.isOrganizer, {
+                                                    'label': "Etes vous un administrateur",
+                                                    label_class: "block text-sm font-bold text-gray-700",
+                                                    row_class: "mb-0"
+                                                                        
+                                                })}}
+                                                <span class="ml-2 text-sm font-bold text-gray-700">Etes vous un organisateur</span>
+                                            </label>
+                                        </div>
+
+                                        {# bouton valider #}
+                                        <div>
+                                            <button type="submit" class="w-full bg-green-500 px-4 py-3 rounded text-white
+                                                font-semibold hover:bg-green-600 transition duration-200 each-in-out">
+                                                Enregistrer
+                                            </button>
+                                        </div>
+                                        
+                    {{form_end(form)}}
+                </div>
+            </div>
+            {# </div> #}
+</div>
+
+
+        {# n---------------------------------------------------------------------------------- #}
+	{# </div>
+</div>
+</div> #}
+{% endblock %}
+{% block footer %}{% endblock %}
 
 
 
@@ -70,7 +149,9 @@
 
 
 
-{# {% extends 'base.html.twig' %}
+
+{# 
+{% extends 'base.html.twig' %}
 
 {% block title %}Hello CategoryController!{% endblock %}
 
